@@ -1,0 +1,157 @@
+/* 기본적인 스타일 리셋 */
+body, h1, h2, h3, p, ul, ol, li, figure, figcaption, blockquote, dl, dd {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f2f5;
+    line-height: 1.6;
+}
+
+/* 메인 컨테이너 */
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e0e0e0;
+}
+
+/* 타이틀 */
+.container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 30px;
+    color: #4b79a1;
+}
+
+/* 방 만들기 버튼 */
+.create-room {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+.create-room a {
+    padding: 10px 20px;
+    background: #007bff;
+    color: #fff;
+    border-radius: 25px;
+    font-weight: bold;
+    text-decoration: none;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.create-room a:hover {
+    background: #0056b3;
+    transform: translateY(-2px);
+}
+
+/* 방 리스트 */
+.room-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.room-item {
+    padding: 15px;
+    background: #eef1f6;
+    border-radius: 15px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s ease;
+}
+
+.room-item:hover {
+    background: #dce3f0;
+}
+
+/* 방 이름 */
+.room-item a {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.room-item a:hover {
+    color: #007bff;
+}
+
+/* 방 아이콘 */
+.room-item .icon {
+    font-size: 25px;
+    color: #007bff;
+    margin-right: 10px;
+}
+
+.join-room {
+    padding: 8px 15px;
+    background: #28a745;
+    color: #fff;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+.join-room:hover {
+    background: #218838;
+    transform: translateY(-2px);
+}
+
+
+
+/* 방 만들기와 홈 버튼 컨테이너 */
+.top-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+/* 공통 버튼 스타일 */
+.top-buttons a {
+    padding: 10px 20px;
+    background: #007bff;
+    color: #fff;
+    border-radius: 25px;
+    font-weight: bold;
+    text-decoration: none;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.top-buttons a:hover {
+    background: #0056b3;
+    transform: translateY(-2px);
+}
+
+/* 애니메이션 효과 추가 */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 애니메이션을 적용할 요소들 */
+.container,
+.chat-container,
+.form-container,
+.room-list,
+h1,
+.top-buttons,
+.message-input-container,
+.exit-button-container {
+    animation: fadeIn 0.8s ease-in-out;
+    opacity: 0;
+    animation-fill-mode: forwards;
+}

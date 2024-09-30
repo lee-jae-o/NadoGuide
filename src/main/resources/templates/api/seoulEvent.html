@@ -1,0 +1,98 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="kr">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>서울시 열린데이터 광장 OpenAPI 샘플(Javascript)</title>-->
+<!--    <link rel="stylesheet" href="/css/event.css" />-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="container">-->
+<!--    <div class="header">-->
+<!--        <h1><a href="#" class="home-link">서울시 행사 정보</a></h1>-->
+<!--        <h4>F5를 누르면 랜덤으로 행사정보가 나옵니다.</h4>-->
+<!--    </div>-->
+<!--    <br>-->
+<!--    <div id="events"></div>-->
+<!--</div>-->
+
+<!--<script>-->
+<!--    const itemsPerLoad = 20;-->
+<!--    const apiUrl = "http://openapi.seoul.go.kr:8088/7563554257646c773833456a6e4d66/json/culturalEventInfo/1/5/";-->
+<!--    function fetchData() {-->
+<!--        fetch(apiUrl)-->
+<!--            .then(response => response.json())-->
+<!--            .then(data => {-->
+<!--                if (data.culturalEventInfo.RESULT.CODE === "INFO-000") {-->
+<!--                    const events = data.culturalEventInfo.row;-->
+<!--                    const randomEvents = getRandomEvents(events, itemsPerLoad);-->
+<!--                    renderEvents(randomEvents);-->
+<!--                } else {-->
+<!--                    alert("Failed to fetch data: " + data.culturalEventInfo.RESULT.MESSAGE);-->
+<!--                }-->
+<!--            })-->
+<!--            .catch(error => console.error("Error fetching data:", error));-->
+<!--    }-->
+<!--    function getRandomEvents(events, count) {-->
+<!--        const shuffled = events.sort(() => 0.5 - Math.random()); // 랜덤으로 섞기-->
+<!--        return shuffled.slice(0, count); // count 개수만큼 잘라서 반환-->
+<!--    }-->
+<!--    function renderEvents(events) {-->
+<!--        const eventsDiv = document.getElementById('events');-->
+<!--        eventsDiv.innerHTML = '';-->
+<!--        events.forEach(event => {-->
+<!--            const eventDiv = document.createElement('div');-->
+<!--            eventDiv.classList.add('event');-->
+<!--            eventDiv.innerHTML = `-->
+<!--                <h2>${event.TITLE}</h2>-->
+<!--                <a href="${event.ORG_LINK}" target="_blank">-->
+<!--                    <img src="${event.MAIN_IMG}" alt="${event.TITLE} 이미지">-->
+<!--                </a>-->
+<!--                <p><strong>장소:</strong> ${event.PLACE}</p>-->
+<!--                <p><strong>일시:</strong> ${event.DATE}</p>-->
+<!--                <p><strong>주최:</strong> ${event.ORG_NAME}</p>-->
+<!--                <p><strong>가격:</strong> ${event.USE_FEE}</p>-->
+<!--                <p><strong>테마:</strong> ${event.CODENAME}</p>-->
+<!--            `;-->
+<!--            eventsDiv.appendChild(eventDiv);-->
+<!--        });-->
+<!--    }-->
+<!--    fetchData();-->
+<!--</script>-->
+<!--</body>-->
+<!--</html>-->
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <title>서울시 행사 정보</title>
+    <link rel="stylesheet" href="/css/event.css" />
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1><a href="#" class="home-link">서울시 행사 정보</a></h1>
+        <h4>페이지를 새로고침하면 랜덤으로 행사 정보가 나옵니다.</h4>
+    </div>
+    <br>
+    <div id="events">
+        <!-- 이벤트 목록 출력 -->
+        <ul>
+            <th:block th:each="event : ${events}">
+                <li>
+                    <h2 th:text="${event.title}">행사 제목</h2>
+                    <a th:href="${event.orgLink}" target="_blank">
+                        <img th:src="${event.mainImg}" th:alt="${event.title} 이미지">
+                    </a>
+                    <p><strong>장소:</strong> <span th:text="${event.place}">장소</span></p>
+                    <p><strong>일시:</strong> <span th:text="${event.date}">일시</span></p>
+                    <p><strong>주최:</strong> <span th:text="${event.orgName}">주최</span></p>
+                    <p><strong>가격:</strong> <span th:text="${event.useFee}">가격</span></p>
+                    <p><strong>테마:</strong> <span th:text="${event.codename}">테마</span></p>
+                </li>
+            </th:block>
+        </ul>
+    </div>
+</div>
+</body>
+</html>
+

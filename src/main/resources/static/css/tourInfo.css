@@ -1,0 +1,169 @@
+body {
+    background-image: -moz-linear-gradient(top, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0)), url("images/bg01.png");
+    background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0)), url("images/bg01.png");
+    background-image: -ms-linear-gradient(top, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0)), url("images/bg01.png");
+    background-image: linear-gradient(top, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0)), url("images/bg01.png");
+    background-color: #f7f7f7;
+    background-position: top left, top left;
+    background-repeat: repeat-x, repeat;
+    background-size: 100% 30em, auto;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 13pt;
+    color: #696969;
+    font-weight: 300;
+    line-height: 2.25em;
+}
+
+/* 메인 컨테이너 */
+main {
+    max-width: 1000px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+/* 투어 상세 정보 */
+.tour-details h1 {
+    font-size: 28px;
+    color: #007bff;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.tour-details h1 i {
+    margin-right: 10px;
+}
+
+/* 이미지 컨테이너 */
+.image-container {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.tour-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* 투어 정보 섹션 */
+.tour-info p {
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 15px;
+    padding: 12px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+}
+
+.tour-info p i {
+    margin-right: 10px;
+    color: #007bff;
+    font-size: 22px;
+}
+
+/* 강조된 텍스트 */
+.tour-info strong {
+    color: #007bff;
+}
+
+/* 예약 및 찜하기 버튼 */
+#btnReserve, #btnFavoriteAdd, #btnFavoriteRemove {
+    padding: 12px 20px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* 예약 버튼 */
+#btnReserve {
+    background: linear-gradient(to right, #28a745, #5dd39e);
+    color: #fff;
+}
+
+#btnReserve:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* 찜하기 버튼 */
+#btnFavoriteAdd {
+    background: linear-gradient(to right, #ff4b5c, #ff7979);
+    color: #fff;
+}
+
+#btnFavoriteAdd:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* 찜해제 버튼 */
+#btnFavoriteRemove {
+    background: linear-gradient(to right, #6c757d, #adb5bd);
+    color: #fff;
+}
+
+#btnFavoriteRemove:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* 버튼 아이콘 크기 조절 */
+#btnReserve i, #btnFavoriteAdd i, #btnFavoriteRemove i {
+    font-size: 18px;
+}
+
+/* 예약 정보 텍스트 */
+.tour-info span {
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+/* 남은 자리 및 예약 정보 텍스트 강조 */
+.tour-info p:last-child span {
+    font-size: 18px;
+    color: #ff4b5c;
+}
+
+/* 남은 자리 안내문 */
+.tour-info p:last-child {
+    background: #ffe5e5;
+    color: #d9534f;
+}
+
+/* 예약한 투어 안내문 */
+.tour-details p {
+    font-size: 20px;
+    font-weight: bold;
+    color: #28a745;
+    text-align: center;
+    margin: 20px 0;
+}
+
+
+/* 등장 애니메이션 */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 투어 등록과 투어 상세 정보에 부드럽게 나타나는 효과 추가 */
+form,
+.tour-details {
+    animation: fadeIn 0.8s ease-in-out; /* 등장 시 부드러운 애니메이션 */
+}

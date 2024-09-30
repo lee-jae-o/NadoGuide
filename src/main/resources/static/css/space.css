@@ -1,0 +1,110 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Container for space cards */
+.space-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+/* Individual space card styling */
+.space-card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 300px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    padding-bottom: 60px; /* Add space for button */
+}
+
+/* Card hover effect */
+.space-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Space image styling */
+.space-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+/* Content inside space card */
+.space-content {
+    padding: 15px;
+    text-align: left;
+}
+
+/* Space title */
+.space-title {
+    font-size: 1.4em;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #2c3e50;
+}
+
+/* Space details */
+.space-detail {
+    margin-bottom: 8px;
+    font-size: 0.95em;
+    color: #555;
+}
+
+/* Space description */
+.space-description {
+    margin-bottom: 12px;
+    font-size: 0.9em;
+    color: #666;
+}
+
+
+
+
+/* Link button styling */
+.space-link {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #3498db;
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+    text-decoration: none;
+    position: absolute; /* Fixed position at bottom */
+    bottom: 15px;
+    left: 15px;
+    transition: background-color 0.3s ease;
+}
+
+.space-link:hover {
+    background-color: #2980b9;
+}
+
+/* Footer message */
+.footer-message {
+    margin-top: 30px;
+    font-size: 0.9em;
+    color: #7f8c8d;
+}
+
+/* 제목 링크의 밑줄 제거 */
+.space-title a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* 제목 링크에 마우스를 올렸을 때도 밑줄이 나타나지 않게 */
+.space-title a:hover {
+    text-decoration: none;
+}

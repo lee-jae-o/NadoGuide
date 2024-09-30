@@ -1,0 +1,218 @@
+/* 전체 배경 */
+body {
+    background: linear-gradient(120deg, #e0eafc, #cfdef3);
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* 메인 컨테이너 */
+main {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 20px;
+    transition: all 0.3s ease-in-out;
+}
+
+/* 내비게이션 버튼 */
+.nav-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.nav-button {
+    padding: 12px 20px;
+    background: #007bff;
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: background 0.3s, transform 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.nav-button:hover {
+    background: #0056b3;
+    transform: translateY(-2px);
+}
+
+/* 게시글 리스트 섹션 */
+.board-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.board-item {
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+}
+
+.board-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+}
+
+.board-link {
+    text-decoration: none;
+    color: #333;
+    display: block;
+}
+
+/* 작성자 스타일 */
+.board-user {
+    font-size: 15px;
+    color: #007bff;
+    margin-bottom: 8px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+/* 제목 스타일 */
+.board-title {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 12px;
+    font-weight: bold;
+}
+
+/* 조회수 스타일 */
+.board-readCnt {
+    font-size: 14px;
+    color: #555;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.board-readCnt i {
+    color: #888;
+    font-size: 16px;
+}
+
+/* 페이지네이션 */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.page-link {
+    margin: 0 8px;
+    padding: 10px 15px;
+    background: #f0f0f0;
+    color: #007bff;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background 0.3s, transform 0.3s;
+    font-weight: bold;
+}
+
+.page-link:hover {
+    background: #007bff;
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+.page-link.active {
+    background: #007bff;
+    color: #fff;
+    cursor: default;
+}
+
+/* 실시간 채팅 버튼 */
+/*.chat-btn {*/
+/*    position: fixed;*/
+/*    bottom: 24px;*/
+/*    right: 24px;*/
+/*    z-index: 1000;*/
+/*}*/
+
+/*.chat-btn button {*/
+/*    width: 80px;*/
+/*    height: 80px;*/
+/*    border: none;*/
+/*    border-radius: 50%;*/
+/*    background: linear-gradient(135deg, #ff5f6d, #ffc371);*/
+/*    color: #fff;*/
+/*    font-size: 28px;*/
+/*    cursor: pointer;*/
+/*    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);*/
+/*    transition: transform 0.3s, box-shadow 0.3s;*/
+/*}*/
+
+/*.chat-btn button:hover {*/
+/*    transform: translateY(-5px);*/
+/*    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);*/
+/*}*/
+
+/*.chat-btn button i {*/
+/*    font-size: 28px;*/
+/*}*/
+
+
+/*!* 등장 애니메이션 *!*/
+/*@keyframes fadeIn {*/
+/*    from { opacity: 0; transform: translateY(-20px); }*/
+/*    to { opacity: 1; transform: translateY(0); }*/
+/*}*/
+
+/*!* 커뮤니티 주요 섹션에 부드러운 등장 효과 적용 *!*/
+/*#home,*/
+/*.board-list,*/
+/*.pagination,*/
+/*.chat-btn {*/
+/*    animation: fadeIn 0.8s ease-in-out; !* 부드러운 애니메이션 *!*/
+/*}*/
+/* 등장 애니메이션 */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* 애니메이션 적용 */
+#home,
+.board-list,
+.pagination {
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+/* 채팅 버튼 스타일 */
+.chat-btn {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 1000; /* 다른 요소 위에 표시 */
+}
+
+.chat-btn button {
+    width: 80px;
+    height: 80px;
+    border: none;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ff5f6d, #ffc371);
+    color: #fff;
+    font-size: 28px;
+    cursor: pointer;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.chat-btn button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
+}
+
+.chat-btn button i {
+    font-size: 28px;
+}

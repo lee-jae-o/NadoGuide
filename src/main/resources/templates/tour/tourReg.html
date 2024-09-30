@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>투어 등록</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="/js/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="/css/tourReg.css">
+    <script>
+        $(document).ready(function() {
+            $('#tourForm').submit(function(event) {
+                event.preventDefault(); // 기본 제출 동작 방지
+
+                if (confirm("투어를 등록하시겠습니까?")) {
+                    var formData = new FormData(this);
+
+                    // 체크박스 값을 배열로 처리
+                    var categories = [];
+                    $('input[name="categories"]:checked').each(function() {
+                        categories.push($(this).val());
+                    });
+                    formData.set('categories', categories.join(',')); // 문자열로 결합하여 전송
+
+                    $.ajax({
+                        url: '/tour/tourInsert',
+                        type: 'POST',
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: function(response) {
+                            alert('투어가 등록되었습니다.');
+                            window.location.href = '/'; // 홈 페이지로 이동
+                        },
+                        error: function(xhr, status, error) {
+                            alert('투어 등록에 실패하였습니다.');
+                        }
+                    });
+                }
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            var today = new Date().toISOString().slice(0, 16); // 현재 시간을 'yyyy-MM-ddTHH:mm' 형식으로
+            document.getElementById("tourDateTime").setAttribute("min", today); // 현재 날짜 이전의 날짜 선택 불가
+        });
+
+    </script>
+</head>
+<body>
+
+<h1>투어 등록</h1>
+
+<form id="tourForm" action="/tour/tourInsert" method="post" enctype="multipart/form-data">
+    <fieldset>
+        <legend>제목</legend>
+        <input type="text" id="tourTitle" name="tourTitle" required>
+    </fieldset>
+
+    <fieldset>
+        <legend>장소</legend>
+        <input type="text" id="tourLocation" name="tourLocation" required>
+    </fieldset>
+
+    <fieldset>
+        <legend>날짜.시간</legend>
+        <input type="datetime-local" id="tourDate" name="tourDate" required>
+    </fieldset>
+
+    <fieldset>
+        <legend>최대 참가 인원</legend>
+        <input type="number" id="maxParticipants" name="maxParticipants" required>
+    </fieldset>
+
+    <fieldset>
+        <legend>준비물</legend>
+        <input type="text" id="supplies" name="supplies" required>
+    </fieldset>
+
+    <fieldset>
+        <legend>카테고리</legend>
+        <div class="categories">
+            <label><i class="fas fa-tree"></i> <input type="checkbox" name="categories" value="#공원"> 공원</label>
+            <label><i class="fas fa-hiking"></i> <input type="checkbox" name="categories" value="#등산"> 등산</label>
+            <label><i class="fas fa-landmark"></i> <input type="checkbox" name="categories" value="#고궁"> 고궁</label>
+            <label><i class="fas fa-water"></i> <input type="checkbox" name="categories" value="#한강"> 한강</label>
+            <label><i class="fas fa-futbol"></i> <input type="checkbox" name="categories" value="#액티비티"> 액티비티</label>
+            <label><i class="fas fa-utensils"></i> <input type="checkbox" name="categories" value="#맛집"> 맛집</label>
+            <label><i class="fas fa-paw"></i> <input type="checkbox" name="categories" value="#반려동물"> 반려동물</label>
+            <label><i class="fas fa-music"></i> <input type="checkbox" name="categories" value="#음악"> 음악</label>
+            <label><i class="fas fa-glass-cheers"></i> <input type="checkbox" name="categories" value="#음주"> 음주</label>
+            <label><i class="fas fa-child"></i> <input type="checkbox" name="categories" value="#아이들"> 아이들</label>
+
+            <label><i class="fas fa-campground"></i> <input type="checkbox" name="categories" value="#축제"> 축제</label>
+            <label><i class="fas fa-paw"></i> <input type="checkbox" name="categories" value="#반려동물"> 반려동물</label>
+            <label><i class="fas fa-glass-martini-alt"></i> <input type="checkbox" name="categories" value="#음주"> 음주</label>
+            <label><i class="fas fa-suitcase-rolling"></i> <input type="checkbox" name="categories" value="#휴가"> 휴가</label>
+            <label><i class="fas fa-child"></i> <input type="checkbox" name="categories" value="#아이들"> 아이들</label>
+            <label><i class="fas fa-music"></i> <input type="checkbox" name="categories" value="#음악"> 음악</label>
+            <label><i class="fas fa-landmark"></i> <input type="checkbox" name="categories" value="#역사"> 역사</label>
+            <label><i class="fas fa-coffee"></i> <input type="checkbox" name="categories" value="#카페"> 카페</label>
+            <label><i class="fas fa-paint-brush"></i> <input type="checkbox" name="categories" value="#미술관"> 미술관</label>
+            <label><i class="fas fa-images"></i> <input type="checkbox" name="categories" value="#갤러리"> 갤러리</label>
+
+            <label><i class="fas fa-history"></i> <input type="checkbox" name="categories" value="#옛날느낌"> 옛날느낌</label>
+            <label><i class="fas fa-microphone-alt"></i> <input type="checkbox" name="categories" value="#케이팝"> 케이팝</label>
+            <label><i class="fas fa-fire-alt"></i> <input type="checkbox" name="categories" value="#MZ"> MZ</label>
+            <label><i class="fas fa-route"></i> <input type="checkbox" name="categories" value="#골목길"> 골목길</label>
+            <label><i class="fas fa-fish"></i> <input type="checkbox" name="categories" value="#수족관"> 수족관</label>
+            <label><i class="fas fa-leaf"></i> <input type="checkbox" name="categories" value="#정원"> 정원</label>
+            <label><i class="fas fa-drumstick-bite"></i> <input type="checkbox" name="categories" value="#바베큐"> 바베큐</label>
+            <label><i class="fas fa-globe"></i> <input type="checkbox" name="categories" value="#외국느낌"> 외국느낌</label>
+            <label><i class="fas fa-star"></i> <input type="checkbox" name="categories" value="#인싸"> 인싸</label>
+            <label><i class="fas fa-heart"></i> <input type="checkbox" name="categories" value="#느낌있는"> 느낌있는</label>
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>알림사항</legend>
+        <textarea id="tourContents" name="tourContents" rows="4" cols="50" required></textarea>
+    </fieldset>
+
+    <fieldset>
+        <legend>이미지 업로드</legend>
+        <input type="file" id="image" name="image" accept="image/*" multiple>
+    </fieldset>
+
+<!--    <button type="submit"><i class="fas fa-check" style="justify-content: center;"></i> 투어 등록</button>-->
+    <div class="button-wrapper">
+        <button type="submit"><i class="fas fa-check"></i> 투어 등록</button>
+    </div>
+</form>
+
+</body>
+</html>

@@ -1,0 +1,168 @@
+/* 기본적인 스타일 리셋 */
+body, h1, h2, h3, p, ul, ol, li, figure, figcaption, blockquote, dl, dd {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f3f4f6;
+    line-height: 1.6;
+}
+
+/* 메인 컨테이너 */
+#main-content {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 25px;
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e0e0e0;
+}
+
+/* 제목 스타일 */
+#main-content h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 28px;
+    color: #4b79a1;
+}
+
+/* 채팅 창 컨테이너 */
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* 대화 표시 영역 */
+#conversation {
+    max-height: 400px; /* 스크롤을 가능하게 하기 위한 최대 높이 */
+    overflow-y: auto;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 20px;
+    background: #f7f9fc;
+}
+
+/* 채팅 메시지 스타일 */
+#chatting {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#chatting div {
+    padding: 12px 15px;
+    border-radius: 10px;
+    background: #eef1f6;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    max-width: 70%;
+    word-wrap: break-word;
+}
+
+#chatting div strong {
+    font-weight: bold;
+    color: #4b79a1;
+    margin-right: 10px;
+}
+
+/* 채팅 메시지 아웃바운드 및 인바운드 스타일 */
+#chatting .outbound {
+    align-self: flex-end;
+    background: #d4edda;
+}
+
+#chatting .inbound {
+    align-self: flex-start;
+    background: #f8d7da;
+}
+
+/* 메시지 입력 섹션 */
+.message-input-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 20px;
+    background: #eef1f6;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+#message {
+    flex: 1;
+    padding: 15px;
+    border: 2px solid #ccc;
+    border-radius: 25px;
+    font-size: 16px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+#message:focus {
+    border-color: #4b79a1;
+    box-shadow: 0 0 5px rgba(75, 121, 161, 0.5);
+    outline: none;
+}
+
+/* 전송 버튼 */
+#send {
+    padding: 10px 20px;
+    background: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+#send:hover {
+    background: #0056b3;
+    transform: translateY(-2px);
+}
+
+/* 나가기 버튼 */
+.exit-button-container {
+    margin-top: 20px;
+    text-align: right;
+}
+
+.btn-exit {
+    padding: 10px 20px;
+    background: #dc3545;
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn-exit:hover {
+    background: #c82333;
+    transform: translateY(-2px);
+}
+
+/* 애니메이션 효과 추가 */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 애니메이션을 적용할 요소들 */
+.container,
+.chat-container,
+.form-container,
+.room-list,
+h1,
+.top-buttons,
+.message-input-container,
+.exit-button-container {
+    animation: fadeIn 0.8s ease-in-out;
+    opacity: 0;
+    animation-fill-mode: forwards;
+}

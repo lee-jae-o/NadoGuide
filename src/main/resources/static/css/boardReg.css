@@ -1,0 +1,141 @@
+/* Reset some default styles */
+body, h1, h2, h3, p, ul, ol, li, figure, figcaption, blockquote, dl, dd {
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f2f5;
+    line-height: 1.6;
+}
+a {
+    text-decoration: none;
+    color: inherit;
+}
+#write {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Form Container Styling */
+.form-container {
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    padding: 40px;
+    margin-top: 40px;
+    border: 1px solid #e0e0e0;
+    position: relative;
+
+    /*width: 700px;*/
+    /*height: 600px;*/
+}
+.form-container h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 2em;
+    font-weight: bold;
+}
+.form-group {
+    margin-bottom: 20px;
+}
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-size: 1.1em;
+    color: #555;
+}
+.form-group input, .form-group textarea {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1em;
+    transition: border-color 0.3s, box-shadow 0.3s;
+
+}
+
+.form-group textarea {
+    /*width: calc(100% - 20px);*/
+    /*padding: 10px;*/
+    /*border: 1px solid #ccc;*/
+    /*border-radius: 8px;*/
+    /*font-size: 1em;*/
+    /*transition: border-color 0.3s, box-shadow 0.3s;*/
+    height: 300px;  /* 원하는 세로 크기로 변경 */
+}
+
+
+
+
+.form-group input:focus, .form-group textarea:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    outline: none;
+}
+.form-buttons {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 30px;
+}
+.form-buttons .btn-submit, .form-buttons .btn-cancel, .form-buttons .btn-reset {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    margin-right: 10px;
+}
+.form-buttons .btn-submit {
+    background-color: #28a745;
+    color: white;
+}
+.form-buttons .btn-submit:hover {
+    background-color: #218838;
+    transform: translateY(-2px);
+}
+.form-buttons .btn-cancel {
+    background-color: #dc3545;
+    color: white;
+}
+.form-buttons .btn-cancel:hover {
+    background-color: #c82333;
+    transform: translateY(-2px);
+}
+.form-buttons .btn-reset {
+    background-color: #ffc107;
+    color: white;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+.form-buttons .btn-reset:hover {
+    background-color: #e0a800;
+    transform: translateY(-2px);
+}
+
+/* Adding a subtle background pattern */
+body {
+    background-image: url('https://www.transparenttextures.com/patterns/white-wall.png');
+}
+
+
+/* 애니메이션 효과 추가 */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 전체 폼 컨테이너, 카드 컨테이너, 댓글 컨테이너에 부드러운 등장 효과 적용 */
+.form-container,
+.card,
+.comment-form,
+#comments {
+    animation: fadeIn 0.8s ease-in-out; /* 부드러운 애니메이션 */
+    opacity: 0; /* 애니메이션 전 요소 숨기기 */
+    animation-fill-mode: forwards; /* 애니메이션 완료 후 최종 상태 유지 */
+}

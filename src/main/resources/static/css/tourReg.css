@@ -1,0 +1,191 @@
+body {
+    background-color: #f7f9fb; /* 밝은 배경 */
+    color: #333;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/*h1 {*/
+/*    text-align: center;*/
+/*    color: #E56F15; !* 주황색 강조 *!*/
+/*    font-size: 2.5rem;*/
+/*    margin-top: 40px;*/
+/*    font-weight: bold;*/
+/*}*/
+
+h1 {
+    text-align: center;
+    color: #E56F15; /* 주황색 강조 */
+    font-size: 2.5rem; /* 폰트 크기 */
+    margin-top: 40px;
+    font-weight: bold;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+/* 제목 하단에 선 추가 */
+h1::after {
+    content: '';
+    display: block;
+    width: 66%;
+    height: 2px;
+    background-color: silver;
+    margin: 30px auto 0; /* 중앙 정렬 및 위로 살짝 띄움 */
+    border-radius: 2px; /* 선 끝을 둥글게 */
+}
+
+/* 투어 등록 폼 */
+form {
+    width: 80%;
+    max-width: 1200px;
+    margin: 50px auto;
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* 필드셋과 레전드 스타일 */
+fieldset {
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    position: relative;
+}
+
+legend {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #555;
+    padding: 0 10px;
+    background-color: white;
+    position: absolute;
+    top: -14px;
+    left: 20px;
+}
+
+/* 입력 필드 스타일 */
+input[type="text"], input[type="number"], input[type="date"], input[type="time"], textarea {
+    width: 97%;
+    padding: 12px;
+    font-size: 1rem;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    transition: border-color 0.3s;
+    margin-top: 10px;
+}
+
+input[type="file"] {
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+/* 포커스 시 테두리 색상 변경 */
+input:focus, textarea:focus {
+    border-color: #E56F15;
+}
+
+/* 카테고리 체크박스 */
+.categories {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3개의 열로 정렬 */
+    gap: 15px;
+}
+
+.categories label {
+    display: flex;
+    align-items: center;
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.categories label:hover {
+    background-color: #E56F15;
+    color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.categories label i {
+    margin-right: 10px;
+    font-size: 1.5rem;
+    transition: color 0.3s ease;
+}
+
+.categories label:hover i {
+    color: white;
+}
+
+/* 버튼 스타일 */
+button[type="submit"] {
+    background-color: #E56F15;
+    color: white;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 30px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 50%;
+    margin-top: 20px;
+    height: 60px;
+}
+
+button[type="submit"]:hover {
+    background-color: #d24000;
+}
+
+/* 이미지 업로드 버튼 스타일 */
+input[type="file"] {
+    padding: 10px;
+    border-radius: 6px;
+    background-color: #f0f4f8;
+    border: none;
+}
+
+input[type="file"]:hover {
+    background-color: #e0e7ed;
+}
+
+/* 수정된 부분 */
+
+/* datetime-local 입력 필드 스타일 */
+input[type="datetime-local"] {
+    width: 97%;
+    padding: 12px;
+    font-size: 1rem;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    transition: border-color 0.3s;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+/* 포커스 시 테두리 색상 변경 */
+input[type="datetime-local"]:focus {
+    border-color: #E56F15;
+}
+
+
+/* 등장 애니메이션 */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 투어 등록과 투어 상세 정보에 부드럽게 나타나는 효과 추가 */
+form,
+.tour-details {
+    animation: fadeIn 0.8s ease-in-out; /* 등장 시 부드러운 애니메이션 */
+}
+
+
+.button-wrapper {
+    text-align: center; /* Center-aligns the button */
+}

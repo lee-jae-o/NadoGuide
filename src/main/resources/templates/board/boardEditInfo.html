@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>게시글 수정하기</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="/js/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="/css/boardEdit.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script th:inline="javascript">
+
+        $(document).ready(function () {
+            $("#btnSend").on("click", function () {
+                doSubmit();
+            });
+        });
+        function calBytes(str) {
+            let tcount = 0;
+            let tmpStr = String(str);
+            let strCnt = tmpStr.length;
+            let onechar;
+            for (let i = 0; i < strCnt; i++) {
+                onechar = tmpStr.charAt(i);
+                if (escape(onechar).length > 4) {
+                    tcount += 2;
+                } else {
+                    tcount += 1;
+                }
+            }
+            return tcount;
+        }
+
+        function doSubmit() {
+            let f = document.getElementById("f");
+
+            if (f.title.value === "") {
+                alert("제목을 입력하시기 바랍니다.");
+                f.title.focus();
+                return;
+            }
+            if (calBytes(f.title.value) > 200) {
+                alert("최대 200Bytes까지 입력 가능합니다.");
+                f.title.focus();
+                return;
+            }
+            if (f.contents.value === "") {
+                alert("내용을 입력하시기 바랍니다.");
+                f.contents.focus();
+                return;
+            }
+            if (calBytes(f.contents.value) > 4000) {
+                alert("최대 4000Bytes까지 입력 가능합니다.");
+                f.contents.focus();
+                return;
+            }
+
+            $.ajax({
+                url: "/board/boardUpdate",
+                type: "post",
+                dataType: "JSON",
+                data: $("#f").serialize(),
+                success: function (json) {
+                    alert(json.msg);
+                    location.href = "/board/boardList";
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+<div class="card">
+    <div class="card-header">게시글 수정하기</div>
+    <form name="f" id="f">
+        <input type="hidden" name="nSeq" th:value="${rDTO.boardSeq}"/>
+        <div class="card-content">
+            <h3>제목</h3>
+            <input type="text" name="title" maxlength="100" th:value="${rDTO.title}"/>
+        </div>
+        <div class="card-content">
+            <h3>내용</h3>
+            <textarea name="contents" th:text="${rDTO.contents}"></textarea>
+        </div>
+        <div class="btn-group">
+            <button id="btnSend" type="button">수정</button>
+            <button type="reset">다시 작성</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

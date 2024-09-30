@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="referrer" content="strict-origin-when-cross-origin"/>
+    <title>로그인 화면</title>
+    <link rel="stylesheet" href="/css/login.css"/>
+    <script type="text/javascript" src="/js/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.serializeObject.min.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            // 회원가입
+            $("#btnUserReg").on("click", function () { // 버튼 클릭했을때, 발생되는 이벤트 생성함(onclick 이벤트와 동일함)
+                location.href = "/user/userRegForm";
+            })
+
+            // 메인화면
+            $("#btnMain").on("click", function () { // 버튼 클릭했을때, 발생되는 이벤트 생성함(onclick 이벤트와 동일함)
+                location.href = "/";
+            })
+
+            $("#btnFindId").on("click", function () {
+                location.href = "/user/findId";
+            })
+
+            $("#btnNewPassword").on("click", function () {
+                location.href = "/user/newPassword";
+            })
+
+            $("#btnLogin").on("click", function () { // 버튼 클릭했을때, 발생되는 이벤트 생성함(onclick 이벤트와 동일함)
+                let f = document.getElementById("f"); // form 태그
+
+
+                if (f.userId.value === "") {
+                    alert("아이디를 입력하세요.");
+                    f.userId.focus();
+                    return;
+                }
+
+                if (f.password.value === "") {
+                    alert("비밀번호를 입력하세요.");
+                    f.password.focus();
+                    return;
+                }
+
+                $.ajax({
+                    url: "/user/loginProc",
+                    type: "post", // 전송방식은 Post
+                    dataType: "JSON", // 전송 결과는 JSON으로 받기
+                    data: $("#f").serialize(), // form 태그 내 input 등 객체를 자동으로 전송할 형태로 변경하기
+                }).then(
+                    function (json) { // 성공
+
+                        if (json.data.result === 1) { // 로그인 성공
+                            alert(json.data.msg); // 메시지 띄우기
+                            location.href = "/"; // 로그인 성공시 메인 페이지 이동
+
+                        } else { // 로그인 실패
+                            alert(json.data.msg); // 메시지 띄우기
+                            $("#userId").focus(); // 아이디 입력 항목에 마우스 커서 이동
+                        }
+
+                    },
+                    function () {
+                        // alert("에러가 발생하였습니다. \n다음에 다시 시도하길 바랍니다."); // 메시지 띄우기
+                        alert("회원정보가 일치하지 않습니다. \n 다시 한 번 시도해 주세요."); // 메시지 띄우기
+                        $("#userId").focus(); // 아이디 입력 항목에 마우스 커서 이동
+
+                    }
+                );
+
+            })
+        })
+    </script>
+</head>
+<body>
+<div class="login-container">
+
+    <h1>Welcome to Seoul!</h1>
+
+    <div class="login-image">
+        <a href="/">
+            <img src="/css/images/seoul.png" alt="Seoul Image">
+        </a>
+    </div>
+    <hr/>
+    <br/>
+
+    <form id="f" class="login-form">
+        <div class="divTable minimalistBlack">
+            <div class="login-form .divTable">
+                <div class="divTableRow">
+                    <div class="divTableCell">
+                    </div>
+
+                    <div class="divTableCell" style="margin-bottom: 14px">
+                        <input type="text" name="userId" id="userId" placeholder="아이디"
+                               style="width:95%; border-radius: 4px; border: 1px solid black; color: black"/>
+                    </div>
+
+                </div>
+                <div class="divTableRow">
+                    <div class="divTableCell">
+                    </div>
+
+                    <div class="divTableCell">
+                        <input type="password" name="password" id="password" placeholder="비밀번호"
+                               style="width:95%; border-radius: 4px; border: 1px solid black; color: black">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <button id="btnLogin" type="button">로그인</button>
+        </div>
+
+        <div class="links">
+            <a href="/user/findId" id="btnFindId">아이디 찾기  |</a>
+            <a href="/user/passwordsearch" id="btnNewPassword">비밀번호 찾기  |</a>
+            <a href="/user/userRegForm" id="btnUserReg">회원가입</a>
+        </div>
+
+    </form>
+</div>
+</body>
+</html>
+

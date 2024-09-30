@@ -1,0 +1,149 @@
+body {
+    background-image: -moz-linear-gradient(top, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0)), url("images/bg01.png");
+    background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0)), url("images/bg01.png");
+    background-image: -ms-linear-gradient(top, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0)), url("images/bg01.png");
+    background-image: linear-gradient(top, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0)), url("images/bg01.png");
+    background-color: #f7f7f7;
+    background-position: top left, top left;
+    background-repeat: repeat-x, repeat;
+    background-size: 100% 30em, auto;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 13pt;
+    color: #696969;
+    font-weight: 300;
+    line-height: 2.25em;
+}
+
+
+body.is-preload *, body.is-preload *:before, body.is-preload *:after {
+    -moz-animation: none !important;
+    -webkit-animation: none !important;
+    -ms-animation: none !important;
+    animation: none !important;
+    -moz-transition: none !important;
+    -webkit-transition: none !important;
+    -ms-transition: none !important;
+    transition: none !important;
+}
+
+input, select, textarea {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 13pt;
+    color: #696969;
+    font-weight: 300;
+    line-height: 2.25em;
+}
+
+.login-container {
+    width: 1100px;
+    height: 520px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 19px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center; /* 세로 가운데 정렬 */
+}
+
+.login-image {
+    /*flex: 1;*/
+    margin-right: 80px;
+    margin-top: 110px;
+}
+
+.login-image img {
+    width: 560px;
+    height: auto;
+
+}
+
+.login-form {
+
+    margin-right: 300px;
+    margin-top: 65px;
+}
+
+.login-form .divTable {
+    width: 700px;
+    margin-top: 80px;
+}
+
+hr {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 0;
+    border-top: 1px solid #eee;
+}
+
+.forgot-links {
+    margin-top: 20px;
+    text-align: right;
+}
+
+.forgot-links a {
+    margin-right: 10px;
+}
+
+#btnLogin {
+    border-radius: 20px;
+    color: white;
+    font-family: Arial;
+    font-size: 17px;
+    background: #187bcd;
+    width: 390px;
+    height: 43px;
+    margin-top: 18px;
+    margin-right: 490px;
+    border-image: linear-gradient(to right, rgba(0, 0, 0, 0), #187bcd) 0 0 0 1;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.4); /* 그림자 추가 */
+}
+
+#btnLogin:hover {
+    background-color: #20b0e5;
+}
+
+.links {
+    margin-top: 32px;
+    margin-left: 36px;
+}
+
+.links a {
+    text-decoration: none; /* 링크의 밑줄 제거 */
+    color: #404248;
+    font-weight: bold;
+}
+
+
+.links a:hover {
+    text-decoration: underline; /* 마우스를 올렸을 때 밑줄 표시 */
+}
+
+
+h1 {
+    position: absolute; /* 절대 위치 설정 */
+    top: 30px; /* 이미지 상단과의 간격 조절 */
+    left: 50%;
+    transform: translateX(-50%); /* 수평 가운데 정렬 */
+    z-index: 1; /* 다른 요소 위로 올라오도록 z-index 설정 */
+    font-size: 40px;
+    margin-left: 17px;
+    font-family: "Roboto Light";
+    color: #444444;
+}
+
+/* 등장 애니메이션 */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* 로그인 컨테이너에 애니메이션 적용 */
+.login-container {
+    animation: fadeIn 0.8s ease-in-out; /* 애니메이션 추가 */
+}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="/css/space.css">
+<head>
+    <meta charset="UTF-8">
+    <title>서울시 문화 공간 정보</title>
+</head>
+<body>
+<h2>서울시 문화 공간 정보</h2>
+
+<!-- Container for space cards -->
+<div class="space-container">
+    <div th:each="space : ${spaces}" class="space-card">
+        <!-- 이미지 표시 -->
+        <a th:href="${space.HOMEPAGE}" target="_blank">
+            <img th:src="${space.MAIN_IMG}" th:alt="'공간 이름: ' + ${space.FAC_NAME}">
+        </a>
+
+        <!-- Content inside space card -->
+        <div class="space-content">
+            <h3 class="space-title">
+                <a th:href="${space.HOMEPAGE}" target="_blank" th:text="${space.FAC_NAME}">공간 이름</a>
+            </h3>
+
+            <p class="space-detail" th:text="'주소: ' + ${space.ADDR}">주소</p>
+            <p class="space-detail" th:text="'전화번호: ' + ${space.PHNE}">전화번호</p>
+            <p class="space-detail" th:text="'휴일: ' + ${space.CLOSEDAY}">휴일</p>
+            <p class="space-detail" th:text="'입장료: ' + ${space.ENTRFREE}">입장료</p>
+
+            <!-- 설명 부분에 HTML 태그를 해석하도록 설정 -->
+<!--            <p class="space-description"><strong>설명:</strong> <span th:utext="${space.FAC_DESC}"></span></p>-->
+
+            <!-- 랜덤 버튼 -->
+            <a th:href="${space.HOMEPAGE}" target="_blank" class="space-link">자세히 보기</a>
+        </div>
+    </div>
+</div>
+
+<!-- Footer message -->
+<p class="footer-message">F5 키를 누르면 랜덤으로 정보가 표시됩니다.</p>
+</body>
+</html>

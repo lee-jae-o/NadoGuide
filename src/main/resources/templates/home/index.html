@@ -1,0 +1,600 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="ko" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>나도가이드에 오신걸 환영합니다!</title>-->
+<!--    <link rel="stylesheet" href="/css/index.css">-->
+<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">-->
+<!--    <script src="/js/jquery-3.6.0.min.js"></script>-->
+<!--    <script>-->
+<!--        $(document).ready(function () {-->
+<!--            // 로그아웃-->
+<!--            $("#btnLogout").on("click", function () {-->
+<!--                $.post("/user/logout", function (data) {-->
+<!--                    alert(data.msg);-->
+<!--                    location.href = "/home/index";-->
+<!--                });-->
+<!--            });-->
+<!--        });-->
+<!--    </script>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--<header>-->
+<!--    <nav>-->
+<!--        <div id="logo">Nado Guide</div> <div id="welcome">나만의 투어를 만들고 직접 가이드 해보세요!</a></div>-->
+<!--        <ul class="nav-links">-->
+<!--            <li th:if="${SS_USER_NICKNAME == null}">-->
+<!--                <a href="/user/login" class="btn-login"><i class="fas fa-user-alt"></i>로그인</a>-->
+<!--            </li>-->
+<!--            <li th:if="${SS_USER_NICKNAME == null}">-->
+<!--                <a href="/user/userRegForm" class="btn-signup"><i class="fas fa-user-plus"></i>회원가입</a>-->
+<!--            </li>-->
+<!--            <li th:if="${SS_USER_NICKNAME != null}">-->
+<!--                <span class="user-welcome">-->
+<!--                    <span class="nickname" th:text="${SS_USER_NICKNAME}" ></span>님 환영합니다.-->
+<!--                </span>-->
+
+<!--                <a href="#" id="btnLogout" class="btn-logout"><i class="fas fa-sign-out-alt"></i>로그아웃</a>-->
+<!--            </li>-->
+<!--        </ul>-->
+<!--    </nav>-->
+<!--</header>-->
+
+<!--<div class="image-container">-->
+<!--    <img id="image" src="/css/images/북촌.jpg"  alt="배경 이미지">-->
+
+<!--    <div id="choosebox">-->
+<!--        <a href="/tour/tourReg"><i class="fas fa-plus-circle"></i> 투어 등록하기</a>-->
+<!--        <a href="/user/myPage"><i class="fas fa-user"></i> 마이페이지</a>-->
+<!--        <a href="/board/boardList"><i class="fas fa-users"></i> 커뮤니티</a>-->
+<!--        <a href="/api/seoulEvent"><i class="fas fa-calendar-alt"></i> 서울 행사 정보</a>-->
+<!--        <a href="/api/seoulSpace"><i class="fas fa-building"></i> 서울 문화 공간</a>-->
+<!--        <a href="/api/pop"><i class="fas fa-users"></i>실시간 인구</a>-->
+<!--    </div>-->
+
+<!--</div>-->
+
+
+<!--<main id="home">-->
+
+<!--    <section id="tours">-->
+<!--        <div class="tour-list">-->
+<!--            <div th:each="tour : ${rList}" class="tour-card">-->
+<!--                <a th:href="@{/tour/tourInfo(tourSeq=${tour.tourSeq})}" style="text-decoration: none; color: inherit;">-->
+<!--                    <img th:src="${tour.imageUrl}" alt="투어 이미지" class="tour-image">-->
+<!--                    <h3 th:text="${tour.tourTitle}">투어 제목</h3>-->
+<!--                    <p th:text="'가이드: ' + ${tour.nickName} + ' 님'">가이드: 닉네임 님</p>-->
+<!--                    <p th:text="${#strings.arrayJoin(tour.categories, ' ')}">카테고리</p>-->
+<!--                </a>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </section>-->
+
+<!--</main>-->
+<!--</body>-->
+<!--</html>-->
+
+
+
+
+
+
+<!--&lt;!&ndash;<!DOCTYPE html>&ndash;&gt;-->
+<!--&lt;!&ndash;<html lang="ko" xmlns:th="http://www.thymeleaf.org">&ndash;&gt;-->
+<!--&lt;!&ndash;<head>&ndash;&gt;-->
+<!--&lt;!&ndash;    <meta charset="UTF-8">&ndash;&gt;-->
+<!--&lt;!&ndash;    <meta name="viewport" content="width=device-width, initial-scale=1.0">&ndash;&gt;-->
+<!--&lt;!&ndash;    <title>나도가이드에 오신걸 환영합니다!</title>&ndash;&gt;-->
+<!--&lt;!&ndash;    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">&ndash;&gt;-->
+<!--&lt;!&ndash;    <script src="/js/jquery-3.6.0.min.js"></script>&ndash;&gt;-->
+<!--&lt;!&ndash;    <script>&ndash;&gt;-->
+<!--&lt;!&ndash;        $(document).ready(function () {&ndash;&gt;-->
+<!--&lt;!&ndash;            // 로그아웃&ndash;&gt;-->
+<!--&lt;!&ndash;            $("#btnLogout").on("click", function () {&ndash;&gt;-->
+<!--&lt;!&ndash;                $.post("/user/logout", function (data) {&ndash;&gt;-->
+<!--&lt;!&ndash;                    alert(data.msg);&ndash;&gt;-->
+<!--&lt;!&ndash;                    location.href = "/home/index";&ndash;&gt;-->
+<!--&lt;!&ndash;                });&ndash;&gt;-->
+<!--&lt;!&ndash;            });&ndash;&gt;-->
+<!--&lt;!&ndash;        });&ndash;&gt;-->
+<!--&lt;!&ndash;    </script>&ndash;&gt;-->
+<!--&lt;!&ndash;    <style>&ndash;&gt;-->
+<!--&lt;!&ndash;        * {&ndash;&gt;-->
+<!--&lt;!&ndash;            margin: 0;&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 0;&ndash;&gt;-->
+<!--&lt;!&ndash;            box-sizing: border-box;&ndash;&gt;-->
+<!--&lt;!&ndash;            font-family: 'Arial', sans-serif;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        body {&ndash;&gt;-->
+<!--&lt;!&ndash;            line-height: 1.6;&ndash;&gt;-->
+<!--&lt;!&ndash;            background-color: #f0f4f8;&ndash;&gt;-->
+<!--&lt;!&ndash;            color: #333;&ndash;&gt;-->
+<!--&lt;!&ndash;            overflow-x: hidden; /* 수평 스크롤 방지 */&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        /* Header Styles */&ndash;&gt;-->
+<!--&lt;!&ndash;        header {&ndash;&gt;-->
+<!--&lt;!&ndash;            background: white;&ndash;&gt;-->
+<!--&lt;!&ndash;            color: #E56F15;&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 0.7rem;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        nav {&ndash;&gt;-->
+<!--&lt;!&ndash;            display: flex;&ndash;&gt;-->
+<!--&lt;!&ndash;            justify-content: space-between;&ndash;&gt;-->
+<!--&lt;!&ndash;            align-items: center;&ndash;&gt;-->
+<!--&lt;!&ndash;            flex-wrap: wrap; /* 줄이 좁아지면 nav 아이템이 새 줄로 넘어감 */&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        #logo {&ndash;&gt;-->
+<!--&lt;!&ndash;            margin-left: 1.5rem;&ndash;&gt;-->
+<!--&lt;!&ndash;            font-weight: bold;&ndash;&gt;-->
+<!--&lt;!&ndash;            font-size: 2.5rem;&ndash;&gt;-->
+<!--&lt;!&ndash;            position: relative;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .nav-links {&ndash;&gt;-->
+<!--&lt;!&ndash;            list-style: none;&ndash;&gt;-->
+<!--&lt;!&ndash;            display: flex;&ndash;&gt;-->
+<!--&lt;!&ndash;            align-items: center;&ndash;&gt;-->
+<!--&lt;!&ndash;            margin-right: 1.5rem;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .nav-links li {&ndash;&gt;-->
+<!--&lt;!&ndash;            margin: 0 1rem;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .nav-links a {&ndash;&gt;-->
+<!--&lt;!&ndash;            color: #333333;&ndash;&gt;-->
+<!--&lt;!&ndash;            text-decoration: none;&ndash;&gt;-->
+<!--&lt;!&ndash;            font-size: 1.1rem;&ndash;&gt;-->
+<!--&lt;!&ndash;            font-weight: bold;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .btn-login, .btn-signup {&ndash;&gt;-->
+<!--&lt;!&ndash;            color: navy;&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 1rem 0.1rem;&ndash;&gt;-->
+<!--&lt;!&ndash;            display: flex;&ndash;&gt;-->
+<!--&lt;!&ndash;            align-items: center;&ndash;&gt;-->
+<!--&lt;!&ndash;            gap: 0.5rem;&ndash;&gt;-->
+<!--&lt;!&ndash;            position: relative;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .btn-login:hover, .btn-signup:hover {&ndash;&gt;-->
+<!--&lt;!&ndash;            color: darkgray;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .user-welcome {&ndash;&gt;-->
+<!--&lt;!&ndash;            margin-right: 1.3rem;&ndash;&gt;-->
+<!--&lt;!&ndash;            color: #333333;&ndash;&gt;-->
+<!--&lt;!&ndash;            font-weight: bold;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .btn-logout:hover {&ndash;&gt;-->
+<!--&lt;!&ndash;            color: darkgray;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        /* Hero Section Styles */&ndash;&gt;-->
+<!--&lt;!&ndash;        .hero {&ndash;&gt;-->
+<!--&lt;!&ndash;            background: url('hero-background.jpg') no-repeat center center/cover;&ndash;&gt;-->
+<!--&lt;!&ndash;            color: #fff;&ndash;&gt;-->
+<!--&lt;!&ndash;            text-align: center;&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 5rem 0;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .hero h2 {&ndash;&gt;-->
+<!--&lt;!&ndash;            font-size: 3rem;&ndash;&gt;-->
+<!--&lt;!&ndash;            margin-bottom: 1rem;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .hero p {&ndash;&gt;-->
+<!--&lt;!&ndash;            font-size: 1.2rem;&ndash;&gt;-->
+<!--&lt;!&ndash;            margin-bottom: 2rem;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .btn-main {&ndash;&gt;-->
+<!--&lt;!&ndash;            background: #4a90e2;&ndash;&gt;-->
+<!--&lt;!&ndash;            color: #fff;&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 0.7rem 1.5rem;&ndash;&gt;-->
+<!--&lt;!&ndash;            border-radius: 5px;&ndash;&gt;-->
+<!--&lt;!&ndash;            text-decoration: none;&ndash;&gt;-->
+<!--&lt;!&ndash;            font-size: 1.2rem;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .btn-main:hover {&ndash;&gt;-->
+<!--&lt;!&ndash;            background: #3b7bc4;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        /* Section Styles */&ndash;&gt;-->
+<!--&lt;!&ndash;        section {&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 2rem 0;&ndash;&gt;-->
+<!--&lt;!&ndash;            text-align: center;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        section#about {&ndash;&gt;-->
+<!--&lt;!&ndash;            background: #f9f9f9;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        section#services .services-container {&ndash;&gt;-->
+<!--&lt;!&ndash;            display: flex;&ndash;&gt;-->
+<!--&lt;!&ndash;            justify-content: space-around;&ndash;&gt;-->
+<!--&lt;!&ndash;            flex-wrap: wrap;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        section#services .service {&ndash;&gt;-->
+<!--&lt;!&ndash;            flex: 1 1 30%;&ndash;&gt;-->
+<!--&lt;!&ndash;            background: #fff;&ndash;&gt;-->
+<!--&lt;!&ndash;            margin: 1rem;&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 1rem;&ndash;&gt;-->
+<!--&lt;!&ndash;            border-radius: 5px;&ndash;&gt;-->
+<!--&lt;!&ndash;            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        section#services .service h3 {&ndash;&gt;-->
+<!--&lt;!&ndash;            margin-bottom: 1rem;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        /* Contact Form Styles */&ndash;&gt;-->
+<!--&lt;!&ndash;        form {&ndash;&gt;-->
+<!--&lt;!&ndash;            max-width: 600px;&ndash;&gt;-->
+<!--&lt;!&ndash;            margin: 0 auto;&ndash;&gt;-->
+<!--&lt;!&ndash;            text-align: left;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        form label {&ndash;&gt;-->
+<!--&lt;!&ndash;            display: block;&ndash;&gt;-->
+<!--&lt;!&ndash;            margin: 0.5rem 0;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        form input, form textarea {&ndash;&gt;-->
+<!--&lt;!&ndash;            width: 100%;&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 0.5rem;&ndash;&gt;-->
+<!--&lt;!&ndash;            margin-bottom: 1rem;&ndash;&gt;-->
+<!--&lt;!&ndash;            border: 1px solid #ccc;&ndash;&gt;-->
+<!--&lt;!&ndash;            border-radius: 5px;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        form button {&ndash;&gt;-->
+<!--&lt;!&ndash;            background: #4a90e2;&ndash;&gt;-->
+<!--&lt;!&ndash;            color: #fff;&ndash;&gt;-->
+<!--&lt;!&ndash;            border: none;&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 0.7rem 1.5rem;&ndash;&gt;-->
+<!--&lt;!&ndash;            border-radius: 5px;&ndash;&gt;-->
+<!--&lt;!&ndash;            cursor: pointer;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        form button:hover {&ndash;&gt;-->
+<!--&lt;!&ndash;            background: #3b7bc4;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .skill-list {&ndash;&gt;-->
+<!--&lt;!&ndash;            display: flex;&ndash;&gt;-->
+<!--&lt;!&ndash;            flex-wrap: wrap;&ndash;&gt;-->
+<!--&lt;!&ndash;            gap: 16px;&ndash;&gt;-->
+<!--&lt;!&ndash;            justify-content: center;&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 20px;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .skill-card {&ndash;&gt;-->
+<!--&lt;!&ndash;            background-color: #fff;&ndash;&gt;-->
+<!--&lt;!&ndash;            border: 1px solid #ddd;&ndash;&gt;-->
+<!--&lt;!&ndash;            border-radius: 8px;&ndash;&gt;-->
+<!--&lt;!&ndash;            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);&ndash;&gt;-->
+<!--&lt;!&ndash;            display: flex;&ndash;&gt;-->
+<!--&lt;!&ndash;            flex-direction: column;&ndash;&gt;-->
+<!--&lt;!&ndash;            width: 300px;&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 16px;&ndash;&gt;-->
+<!--&lt;!&ndash;            transition: transform 0.2s;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .skill-card:hover {&ndash;&gt;-->
+<!--&lt;!&ndash;            transform: translateY(-5px);&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .skill-item {&ndash;&gt;-->
+<!--&lt;!&ndash;            margin: 8px 0;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        #image {&ndash;&gt;-->
+<!--&lt;!&ndash;            width: 100%;&ndash;&gt;-->
+<!--&lt;!&ndash;            height: 52rem;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        #choosebox {&ndash;&gt;-->
+<!--&lt;!&ndash;            position: absolute;&ndash;&gt;-->
+<!--&lt;!&ndash;            top: 78%;&ndash;&gt;-->
+<!--&lt;!&ndash;            left: 50%;&ndash;&gt;-->
+<!--&lt;!&ndash;            transform: translate(-50%, -50%);&ndash;&gt;-->
+<!--&lt;!&ndash;            background: rgba(255, 255, 255, 0.8);&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 16px;&ndash;&gt;-->
+<!--&lt;!&ndash;            border-radius: 10px;&ndash;&gt;-->
+<!--&lt;!&ndash;            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);&ndash;&gt;-->
+<!--&lt;!&ndash;            display: flex;&ndash;&gt;-->
+<!--&lt;!&ndash;            flex-direction: row;&ndash;&gt;-->
+<!--&lt;!&ndash;            gap: 10px;&ndash;&gt;-->
+<!--&lt;!&ndash;            width: 90%; /* 가로로 길게 만들기 위해 너비 지정 */&ndash;&gt;-->
+<!--&lt;!&ndash;            justify-content: center; /* 가운데 정렬 */&ndash;&gt;-->
+<!--&lt;!&ndash;            flex-wrap: wrap; /* 버튼들이 여러 줄로 감싸지게 하기 */&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        #choosebox a {&ndash;&gt;-->
+<!--&lt;!&ndash;            text-decoration: none;&ndash;&gt;-->
+<!--&lt;!&ndash;            color: #333;&ndash;&gt;-->
+<!--&lt;!&ndash;            font-weight: bold;&ndash;&gt;-->
+<!--&lt;!&ndash;            font-size: 25px;&ndash;&gt;-->
+<!--&lt;!&ndash;            display: flex;&ndash;&gt;-->
+<!--&lt;!&ndash;            flex-direction: column;&ndash;&gt;-->
+<!--&lt;!&ndash;            align-items: center;&ndash;&gt;-->
+<!--&lt;!&ndash;            gap: 8px;&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 30px;&ndash;&gt;-->
+<!--&lt;!&ndash;            border-radius: 5px;&ndash;&gt;-->
+<!--&lt;!&ndash;            transition: background 0.3s, color 0.3s;&ndash;&gt;-->
+<!--&lt;!&ndash;            flex: 1 1 auto; /* 버튼들이 균일하게 나열되도록 함 */&ndash;&gt;-->
+<!--&lt;!&ndash;            min-width: 150px; /* 최소 너비 지정 */&ndash;&gt;-->
+<!--&lt;!&ndash;            text-align: center; /* 텍스트 가운데 정렬 */&ndash;&gt;-->
+<!--&lt;!&ndash;            position: relative; /* ::after 가상 요소를 위한 상대 위치 지정 */&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        #choosebox a::after {&ndash;&gt;-->
+<!--&lt;!&ndash;            content: "";&ndash;&gt;-->
+<!--&lt;!&ndash;            position: absolute;&ndash;&gt;-->
+<!--&lt;!&ndash;            right: -5px;&ndash;&gt;-->
+<!--&lt;!&ndash;            top: 50%;&ndash;&gt;-->
+<!--&lt;!&ndash;            transform: translateY(-50%);&ndash;&gt;-->
+<!--&lt;!&ndash;            width: 1px;&ndash;&gt;-->
+<!--&lt;!&ndash;            height: 100%;&ndash;&gt;-->
+<!--&lt;!&ndash;            background-color: darkgray;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        #choosebox a:last-child::after {&ndash;&gt;-->
+<!--&lt;!&ndash;            content: none;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        #choosebox a:nth-child(1)::after,&ndash;&gt;-->
+<!--&lt;!&ndash;        #choosebox a:nth-child(2)::after,&ndash;&gt;-->
+<!--&lt;!&ndash;        #choosebox a:nth-child(4)::after {&ndash;&gt;-->
+<!--&lt;!&ndash;            width: 1.5px; /* 1, 2, 4번째 항목의 선 두께 2px */&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        #choosebox a:hover {&ndash;&gt;-->
+<!--&lt;!&ndash;            background: #E56F15;&ndash;&gt;-->
+<!--&lt;!&ndash;            color: white;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        #choosebox a i {&ndash;&gt;-->
+<!--&lt;!&ndash;            font-size: 24px; /* 아이콘 크기 조정 */&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        #welcome {&ndash;&gt;-->
+<!--&lt;!&ndash;            font-size: 38px;&ndash;&gt;-->
+<!--&lt;!&ndash;            color: #d24000;&ndash;&gt;-->
+<!--&lt;!&ndash;            left: -22%;&ndash;&gt;-->
+<!--&lt;!&ndash;            position: relative;&ndash;&gt;-->
+<!--&lt;!&ndash;            font-family: '나눔손글씨 펜', sans-serif;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        @font-face {&ndash;&gt;-->
+<!--&lt;!&ndash;            font-family: '나눔손글씨 펜';&ndash;&gt;-->
+<!--&lt;!&ndash;            src: url('font/나눔손글씨펜.ttf') format('truetype');&ndash;&gt;-->
+<!--&lt;!&ndash;            font-weight: normal;&ndash;&gt;-->
+<!--&lt;!&ndash;            font-style: normal;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .user-welcome .nickname {&ndash;&gt;-->
+<!--&lt;!&ndash;            color: #E56F15;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .nickname {&ndash;&gt;-->
+<!--&lt;!&ndash;            font-family: "맑은 고딕";&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        /* Responsive Styles */&ndash;&gt;-->
+<!--&lt;!&ndash;        @media (max-width: 1200px) {&ndash;&gt;-->
+<!--&lt;!&ndash;            #choosebox a {&ndash;&gt;-->
+<!--&lt;!&ndash;                font-size: 1.2rem;&ndash;&gt;-->
+<!--&lt;!&ndash;                padding: 20px;&ndash;&gt;-->
+<!--&lt;!&ndash;                min-width: 120px;&ndash;&gt;-->
+<!--&lt;!&ndash;            }&ndash;&gt;-->
+
+<!--&lt;!&ndash;            #choosebox {&ndash;&gt;-->
+<!--&lt;!&ndash;                width: 100%;&ndash;&gt;-->
+<!--&lt;!&ndash;                padding: 10px;&ndash;&gt;-->
+<!--&lt;!&ndash;            }&ndash;&gt;-->
+
+<!--&lt;!&ndash;            #welcome {&ndash;&gt;-->
+<!--&lt;!&ndash;                font-size: 1.5rem;&ndash;&gt;-->
+<!--&lt;!&ndash;                padding: 10px;&ndash;&gt;-->
+<!--&lt;!&ndash;            }&ndash;&gt;-->
+
+<!--&lt;!&ndash;            .skill-card {&ndash;&gt;-->
+<!--&lt;!&ndash;                width: 45%;&ndash;&gt;-->
+<!--&lt;!&ndash;                padding: 10px;&ndash;&gt;-->
+<!--&lt;!&ndash;            }&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        @media (max-width: 768px) {&ndash;&gt;-->
+<!--&lt;!&ndash;            #logo {&ndash;&gt;-->
+<!--&lt;!&ndash;                font-size: 2rem;&ndash;&gt;-->
+<!--&lt;!&ndash;            }&ndash;&gt;-->
+
+<!--&lt;!&ndash;            .nav-links a {&ndash;&gt;-->
+<!--&lt;!&ndash;                font-size: 1rem;&ndash;&gt;-->
+<!--&lt;!&ndash;            }&ndash;&gt;-->
+
+<!--&lt;!&ndash;            .hero h2 {&ndash;&gt;-->
+<!--&lt;!&ndash;                font-size: 2rem;&ndash;&gt;-->
+<!--&lt;!&ndash;            }&ndash;&gt;-->
+
+<!--&lt;!&ndash;            .hero p {&ndash;&gt;-->
+<!--&lt;!&ndash;                font-size: 1rem;&ndash;&gt;-->
+<!--&lt;!&ndash;            }&ndash;&gt;-->
+
+<!--&lt;!&ndash;            .btn-main {&ndash;&gt;-->
+<!--&lt;!&ndash;                font-size: 1rem;&ndash;&gt;-->
+<!--&lt;!&ndash;                padding: 0.5rem 1rem;&ndash;&gt;-->
+<!--&lt;!&ndash;            }&ndash;&gt;-->
+
+<!--&lt;!&ndash;            section {&ndash;&gt;-->
+<!--&lt;!&ndash;                padding: 1rem 0;&ndash;&gt;-->
+<!--&lt;!&ndash;            }&ndash;&gt;-->
+
+<!--&lt;!&ndash;            #choosebox a {&ndash;&gt;-->
+<!--&lt;!&ndash;                font-size: 1rem;&ndash;&gt;-->
+<!--&lt;!&ndash;                padding: 15px;&ndash;&gt;-->
+<!--&lt;!&ndash;                min-width: 100px;&ndash;&gt;-->
+<!--&lt;!&ndash;            }&ndash;&gt;-->
+
+<!--&lt;!&ndash;            #welcome {&ndash;&gt;-->
+<!--&lt;!&ndash;                font-size: 1.2rem;&ndash;&gt;-->
+<!--&lt;!&ndash;                padding: 10px;&ndash;&gt;-->
+<!--&lt;!&ndash;            }&ndash;&gt;-->
+
+<!--&lt;!&ndash;            #choosebox {&ndash;&gt;-->
+<!--&lt;!&ndash;                width: 100%;&ndash;&gt;-->
+<!--&lt;!&ndash;                padding: 10px;&ndash;&gt;-->
+<!--&lt;!&ndash;                flex-direction: column; /* 세로로 정렬 */&ndash;&gt;-->
+<!--&lt;!&ndash;            }&ndash;&gt;-->
+
+<!--&lt;!&ndash;            .skill-card {&ndash;&gt;-->
+<!--&lt;!&ndash;                width: 100%;&ndash;&gt;-->
+<!--&lt;!&ndash;                padding: 10px;&ndash;&gt;-->
+<!--&lt;!&ndash;            }&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        @media (max-width: 480px) {&ndash;&gt;-->
+<!--&lt;!&ndash;            header {&ndash;&gt;-->
+<!--&lt;!&ndash;                flex-direction: column;&ndash;&gt;-->
+<!--&lt;!&ndash;                text-align: center;&ndash;&gt;-->
+<!--&lt;!&ndash;            }&ndash;&gt;-->
+
+<!--&lt;!&ndash;            .nav-links {&ndash;&gt;-->
+<!--&lt;!&ndash;                flex-direction: column;&ndash;&gt;-->
+<!--&lt;!&ndash;                margin: 0;&ndash;&gt;-->
+<!--&lt;!&ndash;            }&ndash;&gt;-->
+
+<!--&lt;!&ndash;            .nav-links li {&ndash;&gt;-->
+<!--&lt;!&ndash;                margin: 0.5rem 0;&ndash;&gt;-->
+<!--&lt;!&ndash;            }&ndash;&gt;-->
+
+<!--&lt;!&ndash;            #choosebox a {&ndash;&gt;-->
+<!--&lt;!&ndash;                font-size: 0.8rem;&ndash;&gt;-->
+<!--&lt;!&ndash;                padding: 10px;&ndash;&gt;-->
+<!--&lt;!&ndash;                min-width: 80px;&ndash;&gt;-->
+<!--&lt;!&ndash;            }&ndash;&gt;-->
+
+<!--&lt;!&ndash;            #welcome {&ndash;&gt;-->
+<!--&lt;!&ndash;                font-size: 1rem;&ndash;&gt;-->
+<!--&lt;!&ndash;                padding: 8px;&ndash;&gt;-->
+<!--&lt;!&ndash;            }&ndash;&gt;-->
+
+<!--&lt;!&ndash;            #choosebox {&ndash;&gt;-->
+<!--&lt;!&ndash;                width: 100%;&ndash;&gt;-->
+<!--&lt;!&ndash;                padding: 8px;&ndash;&gt;-->
+<!--&lt;!&ndash;                flex-direction: column;&ndash;&gt;-->
+<!--&lt;!&ndash;            }&ndash;&gt;-->
+
+<!--&lt;!&ndash;            .skill-card {&ndash;&gt;-->
+<!--&lt;!&ndash;                width: 100%;&ndash;&gt;-->
+<!--&lt;!&ndash;                padding: 8px;&ndash;&gt;-->
+<!--&lt;!&ndash;            }&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .tour-list {&ndash;&gt;-->
+<!--&lt;!&ndash;            display: flex;&ndash;&gt;-->
+<!--&lt;!&ndash;            flex-wrap: wrap;&ndash;&gt;-->
+<!--&lt;!&ndash;            justify-content: space-between;&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 0 20px; /* 양쪽에 여백을 주기 위해 패딩 설정 */&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        /* 투어 카드 스타일 */&ndash;&gt;-->
+<!--&lt;!&ndash;        .tour-card {&ndash;&gt;-->
+<!--&lt;!&ndash;            width: calc(20% - 16px); /* 한 줄에 5개가 나오게 하고 간격을 위해 너비 조정 */&ndash;&gt;-->
+<!--&lt;!&ndash;            margin-bottom: 20px; /* 카드 간의 간격을 주기 위해 여백 설정 */&ndash;&gt;-->
+<!--&lt;!&ndash;            text-align: center; /* 내용 중앙 정렬 */&ndash;&gt;-->
+<!--&lt;!&ndash;            margin-right: 8px; /* 카드 사이의 간격 */&ndash;&gt;-->
+<!--&lt;!&ndash;            margin-left: 8px; /* 카드 사이의 간격 */&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        /* 투어 이미지 스타일 */&ndash;&gt;-->
+<!--&lt;!&ndash;        .tour-image {&ndash;&gt;-->
+<!--&lt;!&ndash;            width: 100%; /* 이미지가 카드 너비를 채우도록 */&ndash;&gt;-->
+<!--&lt;!&ndash;            aspect-ratio: 1 / 1; /* 정사각형 비율 설정 */&ndash;&gt;-->
+<!--&lt;!&ndash;            object-fit: cover; /* 이미지가 카드 크기에 맞게 조정되도록 */&ndash;&gt;-->
+<!--&lt;!&ndash;            display: block; /* 블록 요소로 설정하여 margin/padding 적용 가능 */&ndash;&gt;-->
+<!--&lt;!&ndash;            margin-bottom: 10px; /* 이미지와 텍스트 사이에 여백 추가 */&ndash;&gt;-->
+<!--&lt;!&ndash;            border-radius: 15px;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        /* 투어 제목 스타일 */&ndash;&gt;-->
+<!--&lt;!&ndash;        .tour-card h3 {&ndash;&gt;-->
+<!--&lt;!&ndash;            margin: 10px 0; /* 위아래 여백 설정 */&ndash;&gt;-->
+<!--&lt;!&ndash;            font-size: 1.3em; /* 글자 크기 설정 */&ndash;&gt;-->
+<!--&lt;!&ndash;            text-align: left;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        /* 투어 가이드 및 카테고리 스타일 */&ndash;&gt;-->
+<!--&lt;!&ndash;        .tour-card p {&ndash;&gt;-->
+<!--&lt;!&ndash;            margin: 5px 0; /* 위아래 여백 설정 */&ndash;&gt;-->
+<!--&lt;!&ndash;            font-size: 1em; /* 글자 크기 설정 */&ndash;&gt;-->
+<!--&lt;!&ndash;            text-align: left;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+<!--&lt;!&ndash;    </style>&ndash;&gt;-->
+<!--&lt;!&ndash;</head>&ndash;&gt;-->
+<!--&lt;!&ndash;<body>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<header>&ndash;&gt;-->
+<!--&lt;!&ndash;    <nav>&ndash;&gt;-->
+<!--&lt;!&ndash;        <div id="logo">Nado Guide</div> <div id="welcome">나만의 투어를 만들고 직접 가이드 해보세요!</div>&ndash;&gt;-->
+<!--&lt;!&ndash;        <ul class="nav-links">&ndash;&gt;-->
+<!--&lt;!&ndash;            <li th:if="${SS_USER_NICKNAME == null}">&ndash;&gt;-->
+<!--&lt;!&ndash;                <a href="/user/login" class="btn-login"><i class="fas fa-user-alt"></i>로그인</a>&ndash;&gt;-->
+<!--&lt;!&ndash;            </li>&ndash;&gt;-->
+<!--&lt;!&ndash;            <li th:if="${SS_USER_NICKNAME == null}">&ndash;&gt;-->
+<!--&lt;!&ndash;                <a href="/user/userRegForm" class="btn-signup"><i class="fas fa-user-plus"></i>회원가입</a>&ndash;&gt;-->
+<!--&lt;!&ndash;            </li>&ndash;&gt;-->
+<!--&lt;!&ndash;            <li th:if="${SS_USER_NICKNAME != null}">&ndash;&gt;-->
+<!--&lt;!&ndash;                <span class="user-welcome">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <span class="nickname" th:text="${SS_USER_NICKNAME}" ></span>님 환영합니다.&ndash;&gt;-->
+<!--&lt;!&ndash;                </span>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                <a href="#" id="btnLogout" class="btn-logout"><i class="fas fa-sign-out-alt"></i>로그아웃</a>&ndash;&gt;-->
+<!--&lt;!&ndash;            </li>&ndash;&gt;-->
+<!--&lt;!&ndash;        </ul>&ndash;&gt;-->
+<!--&lt;!&ndash;    </nav>&ndash;&gt;-->
+<!--&lt;!&ndash;</header>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<div class="image-container">&ndash;&gt;-->
+<!--&lt;!&ndash;    <img id="image" src="/css/images/북촌.jpg"  alt="배경 이미지">&ndash;&gt;-->
+
+<!--&lt;!&ndash;    <div id="choosebox">&ndash;&gt;-->
+<!--&lt;!&ndash;        <a href="/tour/tourReg"><i class="fas fa-plus-circle"></i> 투어 등록하기</a>&ndash;&gt;-->
+<!--&lt;!&ndash;        <a href="/user/myPage"><i class="fas fa-user"></i> 마이페이지</a>&ndash;&gt;-->
+<!--&lt;!&ndash;        <a href="/board/boardList"><i class="fas fa-users"></i> 커뮤니티</a>&ndash;&gt;-->
+<!--&lt;!&ndash;        <a href="/api/seoulEvent"><i class="fas fa-calendar-alt"></i> 서울 행사 정보</a>&ndash;&gt;-->
+<!--&lt;!&ndash;        <a href="/api/seoulSpace"><i class="fas fa-building"></i> 서울 문화 공간</a>&ndash;&gt;-->
+<!--&lt;!&ndash;        <a href="/api/pop"><i class="fas fa-users"></i>실시간 인구</a>&ndash;&gt;-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<main id="home">&ndash;&gt;-->
+
+<!--&lt;!&ndash;    <section id="tours">&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="tour-list">&ndash;&gt;-->
+<!--&lt;!&ndash;            <div th:each="tour : ${rList}" class="tour-card">&ndash;&gt;-->
+<!--&lt;!&ndash;                <a th:href="@{/tour/tourInfo(tourSeq=${tour.tourSeq})}" style="text-decoration: none; color: inherit;">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <img th:src="${tour.imageUrl}" alt="투어 이미지" class="tour-image">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <h3 th:text="${tour.tourTitle}">투어 제목</h3>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <p th:text="'가이드: ' + ${tour.nickName} + ' 님'">가이드: 닉네임 님</p>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <p th:text="${#strings.arrayJoin(tour.categories, ' ')}">카테고리</p>&ndash;&gt;-->
+<!--&lt;!&ndash;                </a>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;    </section>&ndash;&gt;-->
+
+<!--&lt;!&ndash;</main>&ndash;&gt;-->
+<!--&lt;!&ndash;</body>&ndash;&gt;-->
+<!--&lt;!&ndash;</html>&ndash;&gt;-->

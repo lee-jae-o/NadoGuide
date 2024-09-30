@@ -1,0 +1,23 @@
+package spring.tree.repository.entity;
+
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
+
+@Builder
+@NoArgsConstructor
+@Getter
+public class CommentPK implements Serializable {
+
+    private long commentSeq;
+    private long boardSeq;
+
+    public CommentPK(long commentSeq, long boardSeq) {
+
+        this.commentSeq = commentSeq;
+        this.boardSeq = boardSeq;
+    }
+
+}

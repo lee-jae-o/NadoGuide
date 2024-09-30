@@ -1,0 +1,351 @@
+body {
+    background-image: -moz-linear-gradient(top, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0)), url("images/bg01.png");
+    background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0)), url("images/bg01.png");
+    background-image: -ms-linear-gradient(top, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0)), url("images/bg01.png");
+    background-image: linear-gradient(top, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0)), url("images/bg01.png");
+    background-color: #f7f7f7;
+    background-position: top left, top left;
+    background-repeat: repeat-x, repeat;
+    background-size: 100% 30em, auto;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 13pt;
+    color: #696969;
+    font-weight: 300;
+    line-height: 2.25em;
+}
+
+/* 메인 컨테이너 */
+.myPage-container {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+/* 섹션 구분 */
+.user-info h2, .tour-info h2 {
+    font-size: 26px;
+    margin-bottom: 20px;
+    color: #fff;
+    background: #2193b0;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 정보 아이템 레이아웃 */
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+}
+
+.info-item label {
+    font-weight: 600;
+    font-size: 16px;
+    flex: 0 0 150px;
+    color: #007bff;
+    display: flex;
+    align-items: center;
+}
+
+.info-item label img {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+.info-item input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 19px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* 버튼 그룹 */
+.btn-group {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+    justify-content: center;
+}
+
+.btn-group button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.btn-group button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* 캘린더 보기 버튼 스타일 */
+.calendar-btn {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 1000;
+}
+
+.calendar-btn button {
+    width: 80px;
+    height: 80px;
+    border: none;
+    border-radius: 50%;
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.calendar-btn button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* 아이콘 크기 조절 */
+.calendar-btn button i {
+    font-size: 28px;
+}
+
+.tour-stats {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 27px;
+    font-size: 20px;
+    font-weight: 500;
+    color: #333;
+    padding: 10px 15px;
+    background-color: #f0f4f8;
+    border-radius: 8px;
+    border: 1px solid #d1e3f1;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* 각각의 통계 항목에 간격 조정 */
+.tour-stats span {
+    padding: 0 20px;
+    text-align: center;
+}
+
+.reservation-list, .tour-list, .favorite-list {
+    margin-bottom: 30px;
+}
+
+/* 카드 스타일의 투어 아이템 */
+.reservation-item, .tour-item, .favorite-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    background: #f3f3f3;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    align-items: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    font-weight: bold;
+    color: #444444;
+}
+
+.reservation-item:hover, .tour-item:hover, .favorite-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.reservation-item button, .tour-item button, .favorite-item button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    background: linear-gradient(to right, #fc5c7d, #6a82fb);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.reservation-item button:hover, .tour-item button:hover, .favorite-item button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* 모달 스타일 */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding-top: 60px;
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 5% auto;
+    padding: 30px;
+    border: none;
+    width: 90%;
+    max-width: 500px;
+    border-radius: 10px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+.modal-content label {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.modal-content input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+.modal-content button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    background: linear-gradient(to right, #fc466b, #3f5efb);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+.close, .close-nickname {
+    color: #888;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.close:hover, .close:focus, .close-nickname:hover, .close-nickname:focus {
+    color: #000;
+    cursor: pointer;
+}
+
+.info-item label {
+    font-weight: 600;
+    font-size: 20px;
+    flex: 0 0 180px;
+    color: #007bff;
+    display: flex;
+    align-items: center;
+}
+
+.info-item label i {
+    margin-right: 8px;
+    font-size: 22px;
+    color: #0056b3;
+    vertical-align: middle;
+}
+
+/* 등장 애니메이션 */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* 마이페이지의 주요 섹션에 부드러운 등장 효과 적용 */
+.myPage-container,
+.user-info,
+.tour-info {
+    animation: fadeIn 0.8s ease-in-out; /* 부드러운 애니메이션 */
+}
+
+
+
+
+
+
+
+/* 투어 예약자 섹션 스타일 */
+.tour-reservation-section {
+    margin-bottom: 30px;
+    padding: 15px;
+    border-radius: 12px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* 투어 제목 */
+.tour-title {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+/* 사용자 목록 헤더 */
+.user-header {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    padding: 10px 15px;
+    background-color: #f0f4f8;
+    border-bottom: 2px solid #d1e3f1;
+    border-radius: 8px 8px 0 0;
+}
+
+/* 사용자 목록 아이템 */
+.user-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 15px;
+    border-bottom: 1px solid #e0e0e0;
+    align-items: center;
+    background-color: #f9f9f9;
+    transition: background-color 0.2s ease;
+}
+
+.user-item:hover {
+    background-color: #e6f2ff;
+}
+
+/* "예약한 사용자가 없습니다" 메시지 */
+.no-reservations {
+    text-align: center;
+    padding: 20px;
+    font-size: 18px;
+    color: #555;
+}
+

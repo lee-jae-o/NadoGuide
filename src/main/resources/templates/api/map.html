@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>VWORLD 3D 지도 예제</title>
+    <script type="text/javascript" src="https://map.vworld.kr/js/webglMapInit.js.do?version=3.0&apiKey=1D1FA78D-A3E1-3C3B-80D3-A1352D205967"></script>
+    <style>
+        #vmap {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+<div id="vmap"></div>
+<script type="text/javascript">
+    function vwmap() {
+        var options = {
+            mapId: "vmap",
+            initPosition: new vw.CameraPosition(
+                new vw.CoordZ(127.425, 38.196, 1548700),
+                new vw.Direction(0, -90, 0)
+            ),
+            logo: true,
+            navigation: true
+        };
+
+        var map = new vw.Map();
+        map.setOption(options);
+        map.start();
+    }
+
+    vwmap();
+</script>
+</body>
+</html>

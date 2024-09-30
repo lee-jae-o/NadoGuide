@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Hello WebSocket</title>
+    <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/main.css" rel="stylesheet">
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+    <link rel="stylesheet" href="/css/room.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+<noscript>
+    <h2 style="color: #ff0000">Javascript가 필요합니다! WebSocket은 Javascript에 의존합니다. 활성화 후 다시 시도해주세요.</h2>
+</noscript>
+<div id="main-content" class="container">
+    <h1 th:text="${roomName} + ' 채팅방'"></h1>
+
+    <div class="chat-container">
+        <div id="conversation">
+            <div id="chatting">
+
+            </div>
+        </div>
+
+        <div class="message-input-container">
+            <input type="text" id="message" class="form-control" placeholder="메시지 입력...">
+            <button id="send" class="btn">전송</button>
+        </div>
+    </div>
+
+    <div class="exit-button-container">
+        <button id="exitRoom" class="btn btn-exit">채팅방 나가기</button>
+    </div>
+</div>
+</body>
+<script th:inline="javascript">
+    var stompClient = null;
+    var roomId = [[${roomId}]];
+    var roomName = [[${roomName}]];
+    var chatList = [[${chatList}]];
+    var userNickname = /*[[${session.SS_USER_NICKNAME}]]*/ '';
+
+    function setConnected(connected) {
+        $("#connect").prop("disabled", connected);
+        $("#disconnect").prop("disabled", !connected);
+        if (connected) {
+            $("#conversation").show();
+        } else {
+            $("#conversation").hide();
+        }
+        $("#chatting").html("");
+    }
+
+    function connect() {
+        var socket = new SockJS('/ws-stomp');
+        stompClient = Stomp.over(socket);
+        stompClient.connect({}, function (frame) {
+            setConnected(true);
+            console.log('Connected: ' + frame);
+            loadChat(chatList);
+
+            stompClient.subscribe('/room/' + roomId, function (chatMessage) {
+                showChat(JSON.parse(chatMessage.body));
+            });
+        });
+    }
+
+    function disconnect() {
+        if (stompClient !== null) {
+            stompClient.disconnect();
+        }
+        setConnected(false);
+        console.log("Disconnected");
+    }
+
+    function sendChat() {
+        var messageContent = $("#message").val();
+        if (messageContent.trim() !== '') {
+            stompClient.send("/send/" + roomId, {}, JSON.stringify({
+                'sender': userNickname,
+                'message': messageContent
+            }));
+            $("#message").val('');
+        }
+    }
+
+    function loadChat(chatList) {
+        if (chatList != null) {
+            for (chat in chatList) {
+                $("#chatting").append("<div><strong>" + chatList[chat].sender + ":</strong> " + chatList[chat].message + "</div>");
+            }
+        }
+    }
+
+    function showChat(chatMessage) {
+        $("#chatting").append("<div><strong>" + chatMessage.sender + ":</strong> " + chatMessage.message + "</div>");
+    }
+
+    $(function () {
+        $("form").on('submit', function (e) {
+            e.preventDefault();
+        });
+        $("#connect").click(function () {
+            connect();
+        });
+        $("#disconnect").click(function () {
+            disconnect();
+        });
+        $("#send").click(function () {
+            sendChat();
+        });
+
+        $("#exitRoom").click(function () {
+            window.location.href = "/roomList";
+        });
+    });
+</script>
+
+<script>
+    window.onload = function () {
+        connect();
+    }
+
+    window.BeforeUnloadEvent = function () {
+        disconnect();
+    }
+</script>
+</html>

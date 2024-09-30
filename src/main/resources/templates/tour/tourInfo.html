@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>투어 상세 정보</title>
+    <link rel="stylesheet" href="/css/tourInfo.css">
+    <script src="/js/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script>
+        $(document).ready(function () {
+            $("#btnReserve").on("click", function () {
+                var tourSeq = $(this).data("tour-seq");
+                if (confirm("정말로 예약하시겠습니까?")) {
+                    $.post("/reservation/make", { tourSeq: tourSeq }, function (data) {
+                        alert(data.msg);
+                        if (data.msg === "예약이 완료되었습니다.") {
+                            window.location.href = "/";
+                        }
+                    });
+                }
+            });
+
+            $("#btnFavoriteAdd").on("click", function () {
+                var tourSeq = $(this).data("tour-seq");
+                $.post("/favorite/add", { tourSeq: tourSeq }, function (data) {
+                    alert(data.msg);
+                    location.reload();
+                });
+            });
+
+            $("#btnFavoriteRemove").on("click", function () {
+                var tourSeq = $(this).data("tour-seq");
+                $.post("/favorite/remove", { tourSeq: tourSeq }, function (data) {
+                    alert(data.msg);
+                    location.reload();
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+
+<main>
+    <div class="tour-details">
+        <h1><i class="fas fa-flag"></i> <span th:text="${rDTO.tourTitle}">투어 제목</span></h1>
+        <div class="image-container">
+            <img th:src="${rDTO.imageUrl}" alt="투어 이미지" class="tour-image">
+        </div>
+        <div class="tour-info">
+            <p><i class="fas fa-user"></i> <span th:text="'가이드 ' + ${rDTO.nickName} + '님 (' + ${rDTO.email} + ')'">가이드님 정보</span></p>
+            <p><i class="fas fa-map-marker-alt"></i> <strong>투어 장소:&nbsp;</strong> <span th:text="${rDTO.tourLocation}">장소</span></p>
+            <p><i class="fas fa-calendar-alt"></i> <strong>투어 날짜/시간:&nbsp;</strong> <span th:text="${#temporals.format(rDTO.tourDate, 'yyyy-MM-dd HH:mm')}">날짜</span></p>
+            <p><i class="fas fa-users"></i> <strong>현재 예약된 인원수:&nbsp;</strong> <span th:text="${rDTO.maxParticipants - remainingSeats}">예약된 인원수</span></p>
+            <p><i class="fas fa-chair"></i> <strong>남은 자리:&nbsp;</strong> <span th:text="${remainingSeats}">남은 자리</span></p>
+<!--            <p><i class="fas fa-hourglass-half"></i> <strong>투어 소요 시간:&nbsp;</strong> <span th:text="${rDTO.tourTime}">소요 시간</span></p>-->
+            <p><i class="fas fa-clipboard-list"></i> <strong>준비물:&nbsp;</strong> <span th:text="${rDTO.supplies}">준비물</span></p>
+            <p><i class="fas fa-tags"></i> <strong>카테고리:&nbsp;</strong> <span th:text="${#strings.arrayJoin(rDTO.categories, ' ')}">카테고리</span></p>
+            <p><i class="fas fa-info-circle"></i> <strong>알림사항:&nbsp;</strong> <span th:text="${rDTO.tourContents}">알림사항</span></p>
+        </div>
+
+        <div th:if="${loggedInUserId != rDTO.userId}">
+            <div th:if="${isReserved}">
+                <p>예약한 투어입니다</p>
+            </div>
+            <div th:unless="${isReserved}">
+                <div th:if="${remainingSeats > 0}">
+                    <button id="btnReserve" th:attr="data-tour-seq=${rDTO.tourSeq}"><i class="fas fa-check"></i> 예약하기</button>
+                </div>
+                <div th:unless="${remainingSeats > 0}">
+                    <p>남은 자리가 없습니다</p>
+                </div>
+                <div>
+                    <button id="btnFavoriteRemove" th:if="${isFavorite}" th:attr="data-tour-seq=${rDTO.tourSeq}" th:text="'찜해제'"><i class="fas fa-heart-broken"></i> 찜해제</button>
+                    <button id="btnFavoriteAdd" th:unless="${isFavorite}" th:attr="data-tour-seq=${rDTO.tourSeq}"><i class="fas fa-heart"></i> 찜하기</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>

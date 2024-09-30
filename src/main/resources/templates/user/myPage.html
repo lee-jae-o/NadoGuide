@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>마이페이지</title>
+    <link href="/css/myPage.css" rel="stylesheet"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/js/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var deleteModal = document.getElementById('deleteModal');
+            var confirmInput = document.getElementById('confirmInput');
+            var confirmBtn = document.getElementById('confirmBtn');
+            var deleteBtn = document.getElementById('deleteBtn');
+            var closeBtn = document.getElementsByClassName('close')[0];
+
+            var updateNickNameModal = document.getElementById('updateNickNameModal');
+            var updateNickNameBtn = document.getElementById('updateNickNameBtn');
+            var closeNickNameBtn = document.getElementsByClassName('close-nickname')[0];
+
+            // 닉네임 변경 모달 열기
+            updateNickNameBtn.onclick = function () {
+                updateNickNameModal.style.display = "block";
+            }
+
+            // 닉네임 변경 모달 닫기
+            closeNickNameBtn.onclick = function () {
+                updateNickNameModal.style.display = "none";
+            }
+
+            // 닉네임 변경 모달 외부 클릭 시 닫기
+            window.onclick = function (event) {
+                if (event.target == updateNickNameModal) {
+                    updateNickNameModal.style.display = "none";
+                }
+            }
+
+            // 계정 삭제 모달 열기
+            deleteBtn.onclick = function () {
+                deleteModal.style.display = "block";
+            }
+
+            // 계정 삭제 모달 닫기
+            closeBtn.onclick = function () {
+                deleteModal.style.display = "none";
+            }
+
+            // 계정 삭제 모달 외부 클릭 시 닫기
+            window.onclick = function (event) {
+                if (event.target == deleteModal) {
+                    deleteModal.style.display = "none";
+                }
+            }
+
+            // 계정 삭제 버튼 클릭 시 확인
+            var userId = $("#userId").val();
+
+            confirmBtn.onclick = function () {
+                var confirmText = confirmInput.value;
+                if (confirmText === "탈퇴합니다") {
+                    $.ajax({
+                        url: "/user/userDelete",
+                        type: "POST",
+                        dataType: "JSON",
+                        data: {"userId": userId},
+                        success: function (json) {
+                            alert(json.msg);
+                            location.href = "/";
+                        },
+                        error: function (xhr, status, error) {
+                            alert("에러가 발생했습니다. 다시 시도해주세요.");
+                        }
+                    });
+                } else {
+                    alert("올바른 입력을 하십시오.");
+                }
+            }
+
+            // 닉네임 업데이트
+            $("#updateNickNameForm").on("submit", function (event) {
+                event.preventDefault();
+                var newNickName = $("#newNickName").val();
+                $.post("/user/updateNickName", {nickName: newNickName}, function (data) {
+                    alert(data.msg);
+                    if (data.msg === "닉네임이 수정되었습니다.") {
+                        location.reload();
+                    }
+                });
+            });
+
+            // 예약 취소, 투어 삭제, 찜 해제 버튼 동작 설정
+            $(".cancelReservationBtn").on("click", function () {
+                var reservationId = $(this).data("reservation-id");
+                if (confirm("정말로 예약을 취소하시겠습니까?")) {
+                    $.post("/reservation/cancel", { reservationId: reservationId }, function (data) {
+                        alert(data.msg);
+                        if (data.msg === "예약이 취소되었습니다.") {
+                            location.reload();
+                        }
+                    });
+                }
+            });
+
+            $(".deleteTourBtn").on("click", function () {
+                var tourSeq = $(this).data("tour-seq");
+                if (confirm("정말로 투어를 삭제하시겠습니까?")) {
+                    $.post("/tour/delete", { tourSeq: tourSeq }, function (data) {
+                        alert(data.msg);
+                        if (data.msg === "투어가 삭제되었습니다.") {
+                            location.reload();
+                        }
+                    });
+                }
+            });
+
+            $(".cancelFavoriteBtn").on("click", function () {
+                var tourSeq = $(this).data("tour-seq");
+                if (confirm("정말로 찜 해제하시겠습니까?")) {
+                    $.post("/favorite/remove", { tourSeq: tourSeq }, function (data) {
+                        alert(data.msg);
+                        location.reload();
+                    });
+                }
+            });
+        });
+    </script>
+</head>
+
+<body class="d-flex flex-column h-100 bg-light">
+<main class="flex-shrink-0">
+    <section class="myPage-container">
+        <!-- 사용자 정보 섹션 -->
+        <div class="user-info">
+            <h2>회원 정보</h2>
+
+            <div class="info-item">
+                <label for="userId"><i class="fas fa-user"></i> 아이디</label>
+                <input type="text" id="userId" name="userId" th:value="${rList[0].userId}" readonly>
+            </div>
+            <div class="info-item">
+                <label for="userName"><i class="fas fa-id-badge"></i> 이름</label>
+                <input type="text" id="userName" name="userName" th:value="${rList[0].userName}" readonly>
+            </div>
+            <div class="info-item">
+                <label for="email"><i class="fas fa-envelope"></i> 이메일</label>
+                <input type="email" id="email" name="email" th:value="${rList[0].email}" readonly>
+            </div>
+            <div class="info-item">
+                <label for="nickName"><i class="fas fa-user-tag"></i> 닉네임</label>
+                <input type="text" id="nickName" name="nickName" th:value="${rList[0].nickName}" readonly>
+            </div>
+            <div class="info-item">
+                <label for="addr1"><i class="fas fa-map-marker-alt"></i> 거주지</label>
+                <input type="text" id="addr1" name="addr1" th:value="${rList[0].addr1}" readonly>
+            </div>
+            <div class="info-item">
+                <label for="addr2"><i class="fas fa-map"></i> 상세주소</label>
+                <input type="text" id="addr2" name="addr2" th:value="${rList[0].addr2}" readonly>
+            </div>
+
+            <div class="btn-group">
+                <button id="updateNickNameBtn" type="button">닉네임 변경</button>
+                <button id="deleteBtn" type="button">회원탈퇴</button>
+            </div>
+
+            <div class="calendar-btn">
+                <button id="calendarButton" onclick="window.location.href='/calendar/info'">
+                    <i class="fas fa-calendar-alt"></i>
+                </button>
+            </div>
+
+            <!-- 닉네임 변경 모달 -->
+            <div id="updateNickNameModal" class="modal" style="display:none;">
+                <div class="modal-content">
+                    <span class="close-nickname">&times;</span>
+                    <label for="newNickName">새 닉네임</label>
+                    <form id="updateNickNameForm">
+                        <input type="text" id="newNickName" name="newNickName" required>
+                        <button type="submit">닉네임 수정</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- 계정 삭제 모달 -->
+            <div id="deleteModal" class="modal" style="display:none;">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <div>정말 탈퇴하시겠습니까?</div>
+                    <input id="confirmInput" type="text" placeholder="탈퇴합니다 를 입력해주세요.">
+                    <button id="confirmBtn" type="button">삭제</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 등록 및 예약 정보 섹션 -->
+        <div class="tour-info">
+            <h2>투어 정보</h2>
+            <div class="tour-stats">
+                <span>등록한 투어: <b th:text="${registeredToursCount}"></b> 개</span>
+                <span>예약한 투어: <b th:text="${reservedToursCount}"></b> 개</span>
+            </div>
+
+            <!-- 예약한 투어 목록 -->
+            <div class="reservation-list" th:if="${reservedToursCount > 0}">
+                <h3>예약한 투어</h3>
+                <div th:each="reservation : ${reservationsWithTourInfo}" class="reservation-item">
+                    <div th:text="${reservation['tourTitle']}"></div>
+                    <div th:text="${#temporals.format(reservation['tourDate'], 'yyyy-MM-dd HH:mm')}"></div>
+                    <button type="button" class="cancelReservationBtn" th:data-reservation-id="${reservation['reservationId']}">취소</button>
+                </div>
+            </div>
+
+            <!-- 등록한 투어 목록 -->
+            <div class="tour-list" th:if="${registeredToursCount > 0}">
+                <h3>등록한 투어</h3>
+                <div th:each="tour : ${registeredTours}" class="tour-item">
+                    <div th:text="${tour.tourTitle}"></div>
+                    <div th:text="${#temporals.format(tour.tourDate, 'yyyy-MM-dd HH:mm')}"></div>
+                    <button type="button" class="deleteTourBtn" th:data-tour-seq="${tour.tourSeq}">삭제</button>
+                </div>
+            </div>
+
+            <div th:if="${tourReservationsInfo[tour.tourSeq] != null and tourReservationsInfo[tour.tourSeq].size() > 0}" th:each="tour : ${registeredTours}" class="tour-reservation-section">
+                <h3 th:text="'투어 ' + ${tour.tourTitle} + '에 예약한 사용자들'" class="tour-title"></h3>
+                <div class="user-header">
+                    <div>닉네임</div>
+                    <div>이메일</div>
+                </div>
+                <div th:each="reservationDetail : ${tourReservationsInfo[tour.tourSeq]}" class="user-item">
+                    <div th:text="${reservationDetail['nickName']}"></div>
+                    <div th:text="${reservationDetail['email']}"></div>
+                </div>
+            </div>
+            <!-- 찜한 투어 목록 -->
+            <div class="favorite-list" th:if="${favoriteTours != null and favoriteTours.size() > 0}">
+                <h3>찜한 투어</h3>
+                <div th:each="tour : ${favoriteTours}" class="favorite-item">
+                    <div th:text="${tour.tourTitle}"></div>
+                    <div th:text="${#temporals.format(tour.tourDate, 'yyyy-MM-dd HH:mm')}"></div>
+                    <button type="button" class="cancelFavoriteBtn" th:data-tour-seq="${tour.tourSeq}">찜 해제</button>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+</body>
+</html>

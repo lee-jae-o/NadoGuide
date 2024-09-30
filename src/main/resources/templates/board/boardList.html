@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>나도가이드-커뮤니티</title>
+    <link rel="stylesheet" href="/css/boardList.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+<main id="home">
+    <!-- Navigation buttons -->
+    <nav class="nav-buttons">
+        <a href="/" class="nav-button"><i class="fas fa-home"></i> 홈</a>
+        <a href="/board/boardReg" class="nav-button"><i class="fas fa-edit"></i> 글 작성</a>
+    </nav>
+
+    <section>
+        <div class="board-list">
+            <div th:each="board : ${rList}" class="board-item">
+                <a th:href="@{'/board/boardInfo?nSeq=' + ${board.boardSeq}}" class="board-link">
+                    <div class="board-user" th:text="${board.userId}"></div>
+                    <div class="board-title" th:text="${board.title}"></div>
+<!--                    <div class="board-readCnt" th:text="${board.readCnt}"></div>-->
+                    <div class="board-readCnt">
+                        <i class="fas fa-eye"></i>
+                        <span th:text="${board.readCnt}"></span>
+                    </div>
+
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="pagination">
+            <span th:if="${page > 1}">
+                <a th:href="@{'/board/boardList?page=' + ${page - 1}}" class="page-link">Previous</a>
+            </span>
+            <span th:each="i : ${#numbers.sequence(1, totalPages)}">
+                <a th:href="@{'/board/boardList?page=' + ${i}}" th:text="${i}" th:classappend="${page == i} ? 'active' : ''" class="page-link"></a>
+            </span>
+            <span th:if="${page < totalPages}">
+                <a th:href="@{'/board/boardList?page=' + ${page + 1}}" class="page-link">Next</a>
+            </span>
+        </div>
+    </section>
+
+    <div class="chat-btn">
+        <button id="calendarButton" onclick="window.location.href='/roomList'">
+            <i class="fas fa-comments"></i>
+        </button>
+    </div>
+
+</main>
+</body>
+</html>

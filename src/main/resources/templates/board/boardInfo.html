@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="/js/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="/css/boardInfo.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        const session_user_id = [[${session.SS_USER_ID}]];
+        const user_id = [[${rDTO.userId}]];
+        const nSeq = [[${rDTO.boardSeq}]];
+
+        $(document).ready(function () {
+            $("#btnEdit, #btnList").on("click", function () {
+                const id = $(this).attr('id');
+                if (id === "btnEdit") {
+                    doEdit();
+                } else if (id === "btnList") {
+                    location.href = "/board/boardList";
+                }
+            });
+
+            $("#btnDelete").on("click", function () {
+                doDelete();
+            });
+
+            $("#btnSend").on("click", function () {
+                doInsertComment();
+            });
+        });
+
+        function doEdit() {
+            if (session_user_id === user_id) {
+                location.href = "/board/boardEditInfo?nSeq=" + nSeq;
+            } else if (session_user_id === "") {
+                alert("로그인 후 이용해주세요.");
+            } else {
+                alert("본인이 작성한 글만 수정 가능합니다.");
+            }
+        }
+
+        function doDelete() {
+            if (session_user_id === user_id) {
+                if (confirm("작성한 글을 삭제하시겠습니까?")) {
+                    $.ajax({
+                        url: "/board/boardDelete",
+                        type: "post",
+                        dataType: "JSON",
+                        data: {"nSeq": nSeq},
+                        success: function (json) {
+                            alert(json.msg);
+                            location.href = "/board/boardList";
+                        }
+                    });
+                }
+            } else if (session_user_id === "") {
+                alert("로그인 후 이용해주세요.");
+            } else {
+                alert("본인이 작성한 글만 삭제 가능합니다.");
+            }
+        }
+
+        function doInsertComment() {
+            const comment = $("#content").val();
+            if (!comment) {
+                alert("댓글을 입력하세요.");
+                return;
+            }
+
+            $.ajax({
+                url: "/comment/commentInsert",
+                type: "post",
+                dataType: "JSON",
+                data: {
+                    "comment": comment,
+                    "boardSeq": nSeq
+                },
+                success: function (json) {
+                    alert(json.msg);
+                    location.href = "/board/boardInfo?nSeq=" + nSeq;
+                }
+            });
+        }
+
+        function EditCommentSeq(element) {
+            var commentSeq = element.getAttribute('data-comment-seq');
+            var userId = element.getAttribute('data-user-id');
+            var newComment = prompt("수정할 내용을 입력하세요:", ""); // 수정할 내용을 입력 받습니다.
+            if (newComment !== null) { // 사용자가 취소를 누르지 않은 경우에만 처리
+                if (newComment.trim() === "") { // 빈 내용인 경우 알림
+                    alert("댓글 내용을 입력하세요.");
+                } else {
+                    $.ajax({
+                        url: "/comment/commentUpdate",
+                        type: "post",
+                        dataType: "JSON",
+                        data: {
+                            "boardSeq": nSeq,
+                            "commentSeq": commentSeq,
+                            "comment": newComment
+                        },
+                        success: function (json) {
+                            alert(json.msg);
+                            location.reload(); // 성공적으로 처리된 경우 페이지를 다시 로드하여 댓글을 업데이트합니다.
+                        }
+                    });
+                }
+            }
+        }
+
+        function DeleteCommentSeq(element) {
+            var commentSeq = element.getAttribute('data-comment-seq');
+            var userId = element.getAttribute('data-user-id');
+            if (session_user_id === userId) {
+                if (confirm("작성한 댓글을 삭제하시겠습니까?")) {
+                    $.ajax({
+                        url: "/comment/commentDelete",
+                        type: "post",
+                        dataType: "JSON",
+                        data: {
+                            "commentSeq": commentSeq,
+                            "boardSeq": nSeq,
+                            "userId": userId
+                        },
+                        success: function (json) {
+                            alert(json.msg);
+                            location.href = "/board/boardInfo?nSeq=" + nSeq;
+                        }
+                    });
+                }
+            } else if (session_user_id === "") {
+                alert("로그인 하시길 바랍니다.");
+            } else {
+                alert("본인이 작성한 글만 삭제 가능합니다.");
+            }
+        }
+
+        /*]]>*/
+    </script>
+</head>
+<body>
+<div class="container">
+    <!-- 게시글 상세 -->
+    <div class="card">
+        <div class="card-header">공지사항 상세</div>
+        <div class="card-content">
+            <h3>제목</h3>
+            <p th:text="${rDTO.title}"></p>
+        </div>
+        <div class="card-content">
+            <h3>작성일</h3>
+            <p th:text="${rDTO.regDt}"></p>
+        </div>
+        <div class="card-content">
+            <h3>조회수</h3>
+            <p th:text="${rDTO.readCnt}"></p>
+        </div>
+        <div class="card-content">
+            <h3>내용</h3>
+            <textarea class="review-content" readonly th:text="${rDTO.contents}"></textarea>
+        </div>
+
+        <!-- 버튼 그룹 -->
+        <div class="btn-group">
+            <button id="btnEdit" type="button">수정</button>
+            <button id="btnDelete" type="button">삭제</button>
+            <button id="btnList" type="button">목록</button>
+        </div>
+    </div>
+
+    <!-- 댓글 작성 폼 -->
+    <div class="comment-form">
+        <h4>댓글 작성</h4>
+        <form name="f" id="f">
+            <textarea class="form-control" name="content" id="content" placeholder="댓글을 입력하세요." required></textarea>
+            <button id="btnSend" type="button">작성</button>
+            <input type="hidden" name="boardSeq" th:value="${rDTO.boardSeq}"/>
+        </form>
+    </div>
+
+    <!-- 댓글 목록 -->
+    <div id="comments">
+        <div th:each="dto : ${rList}" class="comment-item">
+            <div class="comment-content">
+                <h5 th:text="${dto.userId}">작성자 이름</h5>
+                <p th:text="${dto.comment}">댓글 내용</p>
+                <p th:text="${dto.regDt}">작성 시간</p>
+            </div>
+            <div class="btn-group" th:if="${dto.userId eq session.SS_USER_ID}">
+                <button type="button" class="btn btn-sm btn-primary" th:onclick="'EditCommentSeq(this)'" th:attr="data-comment-seq=${dto.commentSeq}, data-user-id=${dto.userId}">수정</button>
+                <button type="button" class="btn btn-sm btn-danger" th:onclick="'DeleteCommentSeq(this)'" th:attr="data-comment-seq=${dto.commentSeq}, data-user-id=${dto.userId}">삭제</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

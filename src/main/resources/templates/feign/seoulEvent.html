@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>서울시 행사 정보</title>
+    <link rel="stylesheet" href="/css/event.css">
+</head>
+<body>
+
+<h2>서울시 행사 정보</h2>
+
+<!-- Event container -->
+<div class="event-container">
+    <!-- Event card -->
+    <div th:each="event : ${events}" class="event-card">
+        <!-- Image -->
+        <img th:src="${event.MAIN_IMG}" alt="Event Image">
+
+        <!-- Content -->
+        <div class="event-content">
+            <!-- Title linked to event URL -->
+            <a th:href="${event.ORG_LINK}" target="_blank">
+                <div class="event-title" th:text="${event.TITLE}" style="text-decoration: none">Event Title</div>
+            </a>
+
+            <!-- Details with icons -->
+            <div class="event-detail">
+                <i class="fas fa-calendar-alt"></i>
+                <span th:text="${event.DATE}">Event Date</span>
+            </div>
+            <div class="event-detail">
+                <i class="fas fa-map-marker-alt"></i>
+                <span th:text="${event.PLACE}">Event Place</span>
+            </div>
+            <div class="event-detail">
+                <i class="fas fa-user"></i>
+                <span th:text="${event.ORG_NAME}">Organizer</span>
+            </div>
+            <div class="event-detail">
+                <i class="fas fa-money-bill-wave"></i>
+                <span th:text="${event.USE_FEE}">Fee</span>
+            </div>
+
+            <!-- Link button -->
+            <a th:href="${event.ORG_LINK}" target="_blank" class="event-link">
+                자세히 보기
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Footer message for F5 functionality -->
+<div class="footer-message">
+    F5키를 누르면 랜덤으로 행사가 갱신됩니다.
+</div>
+
+</body>
+</html>

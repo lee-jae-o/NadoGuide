@@ -1,0 +1,92 @@
+/* 기본적인 스타일 리셋 */
+body, h1, h2, h3, p, ul, ol, li, figure, figcaption, blockquote, dl, dd {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f2f5;
+    line-height: 1.6;
+}
+
+/* 메인 컨테이너 */
+.form-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e0e0e0;
+}
+
+/* 타이틀 */
+.form-container h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 28px;
+    color: #4b79a1;
+}
+
+/* 방 이름 입력 필드 */
+.form-container input[type="text"] {
+    width: 100%;
+    padding: 15px;
+    border-radius: 25px;
+    border: 2px solid #ccc;
+    margin-bottom: 20px;
+    font-size: 16px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-container input[type="text"]:focus {
+    border-color: #4b79a1;
+    box-shadow: 0 0 5px rgba(75, 121, 161, 0.5);
+    outline: none;
+}
+
+/* 방 만들기 버튼 */
+.form-container input[type="submit"] {
+    padding: 15px 30px;
+    background: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+.form-container input[type="submit"]:hover {
+    background: #0056b3;
+    transform: translateY(-2px);
+}
+
+/* Aligning the submit button */
+.form-container form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* 애니메이션 효과 추가 */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 애니메이션을 적용할 요소들 */
+.container,
+.chat-container,
+.form-container,
+.room-list,
+h1,
+.top-buttons,
+.message-input-container,
+.exit-button-container {
+    animation: fadeIn 0.8s ease-in-out;
+    opacity: 0;
+    animation-fill-mode: forwards;
+}

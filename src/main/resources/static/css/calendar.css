@@ -1,0 +1,262 @@
+body {
+    background-image: -moz-linear-gradient(top, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0)), url("images/bg01.png");
+    background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0)), url("images/bg01.png");
+    background-image: -ms-linear-gradient(top, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0)), url("images/bg01.png");
+    background-image: linear-gradient(top, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0)), url("images/bg01.png");
+    background-color: #f7f7f7;
+    background-position: top left, top left;
+    background-repeat: repeat-x, repeat;
+    background-size: 100% 30em, auto;
+    color: #696969;
+}
+
+
+
+#calendar {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border: 2px solid #E56F15; /* 포인트 색상 추가 */
+    position: relative;
+    overflow: hidden; /* 내부 콘텐츠 넘침 방지 */
+}
+
+/* 홈 버튼 스타일 */
+#homeButton {
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    width: 60px;
+    height: 60px;
+    background-color: #E56F15;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    z-index: 999; /* 캘린더 요소 위에 표시 */
+}
+
+#homeButton:hover {
+    background-color: #c95e10;
+    transform: scale(1.1);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* 달력 커서 효과 */
+#calendar .fc-daygrid-day:hover {
+    cursor: pointer;
+}
+
+/* 평일, 토요일, 일요일 색상 구분 */
+.fc-daygrid-day.fc-day-sat .fc-daygrid-day-number {
+    color: blue; /* 토요일 */
+    font-weight: bold;
+}
+
+.fc-daygrid-day.fc-day-sun .fc-daygrid-day-number {
+    color: red; /* 일요일 */
+    font-weight: bold;
+}
+
+.fc-daygrid-day:not(.fc-day-sat):not(.fc-day-sun) .fc-daygrid-day-number {
+    color: black; /* 평일 */
+}
+
+/* 모달 창 디자인 개선 */
+.modal-content {
+    background-color: #ffffff;
+    border-radius: 15px; /* 둥근 모서리 */
+    padding: 40px;
+    max-width: 600px;
+    width: 90%; /* 모달 너비 확장 */
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2); /* 진한 그림자 */
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border: 2px solid #E56F15; /* 테두리 추가 */
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out; /* 부드러운 효과 */
+}
+
+/* 모달 창 호버 효과 */
+.modal-content:hover {
+    transform: scale(1.02); /* 살짝 확대 */
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.3); /* 그림자 더 진하게 */
+}
+
+/* 모달 창 타이틀 스타일 */
+.modal-content h2 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #333333;
+    border-bottom: 2px solid #E56F15; /* 포인트 색상 하단 테두리 */
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+/* 모달 레이블과 입력 필드 */
+.modal-content label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #444444;
+    font-size: 1.1rem;
+}
+
+.modal-content input[type="text"],
+.modal-content input[type="date"],
+.modal-content textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 8px; /* 더 부드러운 모서리 */
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.1); /* 입력 필드 그림자 */
+    transition: border-color 0.3s ease; /* 테두리 전환 효과 */
+}
+
+.modal-content input[type="text"]:focus,
+.modal-content input[type="date"]:focus,
+.modal-content textarea:focus {
+    border-color: #E56F15; /* 포커스 시 포인트 색상 */
+    outline: none;
+}
+
+/* 텍스트 에어리어 조정 */
+.modal-content textarea {
+    resize: vertical; /* 세로만 조정 가능 */
+    height: 100px; /* 기본 높이 증가 */
+}
+
+/* 모달의 버튼 스타일 */
+.modal-content button {
+    padding: 12px 25px; /* 버튼 패딩 증가 */
+    font-size: 1rem;
+    margin-right: 10px;
+    border: none;
+    border-radius: 8px; /* 둥근 모서리 */
+    cursor: pointer;
+    font-weight: bold; /* 굵은 글씨 */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* 부드러운 효과 */
+}
+
+/* 저장 버튼 */
+.modal-content button[type="submit"] {
+    background-color: #28a745; /* 녹색 */
+    color: #ffffff;
+}
+
+.modal-content button[type="submit"]:hover {
+    background-color: #218838;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15); /* 그림자 추가 */
+}
+
+/* 닫기 버튼 */
+#closeModal, #closeDetailModal {
+    background-color: #6c757d; /* 회색 */
+    color: #ffffff;
+}
+
+#closeModal:hover, #closeDetailModal:hover {
+    background-color: #5a6268;
+}
+
+/* 수정 버튼 */
+#editEvent {
+    background-color: #007bff; /* 파랑색 */
+    color: #ffffff;
+}
+
+#editEvent:hover {
+    background-color: #0069d9;
+}
+
+/* 삭제 버튼 */
+#deleteEvent {
+    background-color: #dc3545; /* 빨강색 */
+    color: #ffffff;
+}
+
+#deleteEvent:hover {
+    background-color: #c82333;
+}
+
+/* 모달의 버튼 그룹을 중앙 정렬 */
+.modal-content .btn-group {
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* 애니메이션 - 모달이 서서히 나타나도록 */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.modal-content {
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* 캘린더의 각 이벤트 스타일 */
+.fc-event {
+    background-color: #E56F15;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    padding: 5px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.fc-event:hover {
+    transform: scale(1.05); /* 마우스 오버 시 확대 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* 캘린더 헤더 (날짜 및 네비게이션) */
+.fc-toolbar {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+}
+
+.fc-toolbar-title {
+    font-weight: bold;
+    color: #333;
+}
+
+.fc-button {
+    background-color: #007bff; /* 기본 버튼: 파랑색 */
+    border: none;
+    color: #fff;
+    border-radius: 5px;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.fc-button:hover {
+    background-color: #0069d9;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 모달 창과 캘린더에 효과 적용 */
+.modal-content,
+#calendar {
+    animation: fadeIn 0.8s ease-in-out; /* 부드러운 애니메이션 */
+}
