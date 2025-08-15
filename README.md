@@ -1,20 +1,20 @@
+🧭
 
-[나도가이드 24e6b1d066e181d18877e90f28dc597d.md](https://github.com/user-attachments/files/21791778/24e6b1d066e181d18877e90f28dc597d.md)
+
 # 나도가이드
 
-진행 기간: 2024년 3월 30일 → 2024년 6월 27일
-태그: SpringBoot
-한 줄 설명: 졸업 작품
-개발 인원(역할): 1인 개발 / 전체 기획 및 프론트·백엔드 구현
-Github: https://github.com/lee-jae-o/NadoGuide
-URL: https://nadoguide.store/  (현재 EC2 인스턴스 삭제)
-관련 자료1: %EC%9D%B4%EC%9E%AC%EC%98%A4_%ED%99%94%EB%A9%B4%EC%84%A4%EA%B3%84%EC%84%9C.pdf
-관련 자료2: %EC%9D%B4%EC%9E%AC%EC%98%A4_%EB%B3%B4%EA%B3%A0%EC%84%9C.pdf
+진행 기간: 2024년 3월 30일 → 2024년 6월 27일<br>
+태그: SpringBoot<br>
+한 줄 설명: 졸업 작품<br>
+개발 인원(역할): 1인 개발 / 전체 기획 및 프론트·백엔드 구현<br>
 
-![1.png](1.png)
 
-![<나도가이드 메인 화면>](2.png)
+<div>&nbsp;</div>
+<div>&nbsp;</div>
 
+
+<img width="1919" height="983" alt="1" src="https://github.com/user-attachments/assets/1d8430cd-794f-4711-a8f9-a1eb567165cc" />
+<img width="1280" height="593" alt="2" src="https://github.com/user-attachments/assets/1f57ccf6-ec99-4d07-a1d6-c23a3d1ba31a" />
 <나도가이드 메인 화면>
 
 ### **📌 개요 및 사용 기술**
