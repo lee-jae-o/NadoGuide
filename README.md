@@ -50,7 +50,8 @@
 
 ---
 
-![<나도가이드 시스템 구성도>](%EC%9E%91%ED%92%88_.jpg)
+![작품_](https://github.com/user-attachments/assets/eb5415e9-71d4-47fd-a62d-72bdaabf5347)
+
 
 <나도가이드 시스템 구성도>
 
@@ -80,9 +81,9 @@
 
 ---
 
-![5.png](5.png)
+<img width="833" height="491" alt="5" src="https://github.com/user-attachments/assets/66f2bebc-ea54-4e2a-9688-ebf0534cc88a" />
+<img width="1072" height="544" alt="7" src="https://github.com/user-attachments/assets/50322f93-5510-4329-a412-7f95b9e8b035" />
 
-![7.png](7.png)
 
 사용자는 직접 투어를 등록하고, 다른 사용자가 해당 투어를 예약할 수 있습니다.
 
@@ -96,7 +97,8 @@
 
 ---
 
-![3.png](3.png)
+<img width="825" height="593" alt="3" src="https://github.com/user-attachments/assets/f21b0010-a21f-4307-b60e-6a552fe44e07" />
+
 
 마이페이지에서는 회원 정보와 투어 관련 활동 내역을 확인하고 관리할 수 있습니다.
 
@@ -114,9 +116,9 @@
 
 ---
 
-![8.png](8.png)
+<img width="812" height="593" alt="8" src="https://github.com/user-attachments/assets/f042a412-9c86-42d9-86d8-7d1b1077b421" />
+<img width="635" height="593" alt="9" src="https://github.com/user-attachments/assets/057eb26b-6272-43cb-bd66-749dc258c8bd" />
 
-![9.png](9.png)
 
 사용자가 자유롭게 글과 댓글을 작성·열람할 수 있는 게시판 기능입니다.
 
@@ -128,7 +130,8 @@
 
 ---
 
-![4.png](4.png)
+<img width="1061" height="592" alt="4" src="https://github.com/user-attachments/assets/17afbc67-0763-4f33-b5df-d8f0c9bf97a2" />
+
 
 예약한 투어 일정을 달력 형태로 확인할 수 있는 기능입니다.
 
@@ -140,7 +143,7 @@
 
 ---
 
-![10.png](10.png)
+<img width="685" height="547" alt="10" src="https://github.com/user-attachments/assets/c7ce281b-e767-4017-92a0-31fdfa9de113" />
 
 투어 참가자 간 소통을 위한 실시간 채팅 기능입니다.
 
@@ -152,9 +155,9 @@ WebSocket 기반으로 구현하여 실시간 메시지 송수신이 가능합�
 
 ---
 
-![11.png](11.png)
+<img width="1280" height="593" alt="11" src="https://github.com/user-attachments/assets/40ace1d0-281c-49c0-8dc3-1f11e18add1c" />
+<img width="1280" height="594" alt="12" src="https://github.com/user-attachments/assets/76d7737f-f693-4a86-beb3-b3791d49a0f4" />
 
-![12.png](12.png)
 
 서울시 공공데이터 API를 활용하여 문화공간 정보와 행사 일정을 제공합니다.
 
